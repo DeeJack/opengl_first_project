@@ -1,0 +1,9 @@
+bin/*
+bin/
+.vs/
+Dependencies/
+first/first.vcxproj
+first/first.vcxproj.filters
+first/first.vcxproj.user
+first/imgui.ini
+first/first/src/vendor/
