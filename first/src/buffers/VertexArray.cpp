@@ -20,10 +20,11 @@ void VertexArray::unbind() const
 	glBindVertexArray(0);
 }
 
-void VertexArray::add_buffer(const VertexBuffer& vb, const BufferLayout& layout)
+void VertexArray::add_buffer(VertexBuffer& vb, const BufferLayout& layout)
 {
 	bind();
 	vb.bind();
+	_bound_vertex = &vb;
 	const auto& elements = layout.get_elements();
 	unsigned int offset = 0;
 	for (unsigned int i = 0; i != elements.size(); ++i)
@@ -37,3 +38,7 @@ void VertexArray::add_buffer(const VertexBuffer& vb, const BufferLayout& layout)
 	}
 }
 
+VertexBuffer* VertexArray::bound_buffer()
+{
+	return _bound_vertex;
+}

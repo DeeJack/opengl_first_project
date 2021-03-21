@@ -6,6 +6,7 @@ class VertexArray
 {
 private:
 	unsigned int _array_id;
+	VertexBuffer* _bound_vertex;
 public:
 	VertexArray();
 	VertexArray(const VertexArray& va) = delete;
@@ -14,5 +15,6 @@ public:
 	void bind() const;
 	void unbind() const;
 
-	void add_buffer(const VertexBuffer& vb, const BufferLayout& layout);
+	void add_buffer(VertexBuffer& vb, const BufferLayout& layout);
+	VertexBuffer* bound_buffer();
 };

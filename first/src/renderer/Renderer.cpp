@@ -19,7 +19,17 @@ void Renderer::draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 	GLCall(glDrawElements(GL_TRIANGLES, ib.get_count(), GL_UNSIGNED_INT, nullptr)); // The indices pointer is already bound
 }
 
+void Renderer::draw(Shape& shape) const
+{
+	shape.shader()->bind();
+	const glm::vec4 color = shape.color();
+	shape.shader()->set_uniform4f("u_color", color.r, color.g, color.b, color.a);
+	shape.vertex_array()->bind();
+	shape.index_buffer()->bind();
+	GLCall(glDrawElements(GL_TRIANGLES, shape.index_buffer()->get_count(), GL_UNSIGNED_INT, nullptr)); // The indices pointer is already bound
+}
+
 void Renderer::clear() const
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
