@@ -46,7 +46,7 @@ Texture::~Texture()
 	log("Destroyed Texture (" + std::to_string(_renderer_id) + ")");
 }
 
-void Texture::bind(unsigned slot) const
+void Texture::bind(unsigned int slot) const
 {
 	if (slot > 31)
 		throw std::invalid_argument("Invalid slot: " + std::to_string(slot));

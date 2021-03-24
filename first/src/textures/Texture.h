@@ -13,11 +13,12 @@ public:
 	Texture(const std::string& path);
 	~Texture();
 
+	// TODO: load textures async
 	void load(const std::string& path);
 	void bind(unsigned int slot = 0) const;
 	void unbind() const;
 
-	inline int get_width() { return _width; }
-	inline int get_height() { return _height; }
+	inline int get_width() const { return _width; }
+	inline int get_height() const { return _height; }
 
 };

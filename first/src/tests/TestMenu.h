@@ -3,6 +3,7 @@
 #include "TestClearColor.h"
 #include "imgui/imgui.h"
 #include "sorting/Sorting.h"
+#include "test3d/Test3d.h"
 #include "textures/TestTextures.h"
 
 namespace test
@@ -44,6 +45,11 @@ namespace test
 			{
 				delete _current_test;
 				_current_test = new TestTextures();
+			}
+			else if (ImGui::Button("3d"))
+			{
+				delete _current_test;
+				_current_test = new Test3d();
 			}
 
 			_current_test->on_imgui_render();

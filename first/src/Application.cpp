@@ -12,6 +12,7 @@
 #include "renderer/Renderer.h"
 #include "buffers/VertexArray.h"
 #include "util.h"
+#include "stb_image/stb_image.h"
 #include "tests/TestClearColor.h"
 #include "tests/TestMenu.h"
 #include "tests/sorting/Sorting.h"
@@ -37,6 +38,14 @@ int main() noexcept
 			glfwTerminate();
 			return -1;
 		}
+		int _width = 0, _height = 0, _bpp = 0; // Bits per pixel
+		stbi_set_flip_vertically_on_load(1); // OpenGL expect the texture to start from the bottom left
+		unsigned char* _local_buffer = stbi_load("res/textures/earth.png", &_width, &_height, &_bpp, 4); // 4 because R, G, B, A
+
+		glfwSetWindowIcon(window, 1, new GLFWimage{ _width, _height, _local_buffer });
+
+		if (_local_buffer)
+			stbi_image_free(_local_buffer);
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(window);
@@ -72,7 +81,13 @@ void run(GLFWwindow* window) {
 	// If the source it's transparent, it takes the background
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
-	
+
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
+
 	const Renderer renderer;
 
 	ImGui::CreateContext();
@@ -91,11 +106,11 @@ void run(GLFWwindow* window) {
 
 		test.on_update(0.F);
 		test.on_render();
-		
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		
+
 		test.on_imgui_render();
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
