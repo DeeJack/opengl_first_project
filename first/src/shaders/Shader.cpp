@@ -18,6 +18,7 @@ Shader::Shader(const std::string& file_path)
 
 Shader::~Shader()
 {
+	unbind();
 	glDeleteProgram(_renderer_id);
 	log("Destroyed Shader (" + std::to_string(_renderer_id) + ")");
 }

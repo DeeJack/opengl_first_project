@@ -1,16 +1,17 @@
 #include "Shape.h"
 
 Shape::Shape(VertexArray* vertexes, IndexBuffer* buffer, Shader* shader) : _vertex_array(vertexes),
-	_index_buffer(buffer), _shader(shader)
+_index_buffer(buffer), _shader(shader)
 {
 }
 
-Shape::Shape(): _vertex_array(nullptr), _index_buffer(nullptr), _shader(nullptr)
+Shape::Shape() : _vertex_array(nullptr), _index_buffer(nullptr), _shader(nullptr)
 {
 }
 
 Shape::~Shape()
 {
+	log("Destroying Shape");
 	delete _vertex_array;
 	delete _index_buffer;
 	log("Destroyed Shape");

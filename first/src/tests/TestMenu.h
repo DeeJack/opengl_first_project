@@ -13,7 +13,7 @@ namespace test
 		Test* _current_test = new TestTextures();
 	public:
 
-		~TestMenu()
+		virtual ~TestMenu()
 		{
 			delete _current_test;
 		}

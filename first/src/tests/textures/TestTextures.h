@@ -21,7 +21,6 @@ namespace test
 		glm::mat4 view = glm::translate(glm::mat4(1.0F), glm::vec3(0.0F, 0.0F, 0.0F));
 		glm::vec3 translation = glm::vec3(0, 0, 0);
 		Texture _texture;
-		std::thread* _textureTask;
 	public:
 		TestTextures();
 		~TestTextures();

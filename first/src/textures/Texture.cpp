@@ -42,6 +42,7 @@ Texture::Texture(const std::string& path)
 
 Texture::~Texture()
 {
+	unbind();
 	glDeleteTextures(1, &_renderer_id);
 	log("Destroyed Texture (" + std::to_string(_renderer_id) + ")");
 }

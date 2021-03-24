@@ -14,8 +14,9 @@ test::TestTextures::TestTextures()
 
 test::TestTextures::~TestTextures()
 {
-	delete _textureTask;
+	log("Deleting TestTextures");
 	delete _box;
+	log("Deleted TestTextures");
 }
 
 void test::TestTextures::init()

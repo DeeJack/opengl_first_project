@@ -19,6 +19,7 @@ namespace test
 	Test3d::~Test3d()
 	{
 		delete _cube;
+		delete _pyramid;
 	}
 
 	void Test3d::on_update(float deltaTime)
@@ -28,19 +29,19 @@ namespace test
 	void Test3d::on_render()
 	{
 		if (_camera_rotations[0] != _last_rotations[0]) {
-			view = glm::rotate(glm::mat4(1.F), static_cast<float>(glm::radians(_camera_rotations[0])), glm::vec3(1, 0, 0));
+			view = glm::rotate(glm::mat4(1.F), glm::radians(_camera_rotations[0]), glm::vec3(1, 0, 0));
 			_last_rotations[0] = _camera_rotations[0];
 		}
 		if (_camera_rotations[1] != _last_rotations[1]) {
-			view = glm::rotate(glm::mat4(1.F), static_cast<float>(glm::radians(_camera_rotations[1])), glm::vec3(0, 1, 0));
+			view = glm::rotate(glm::mat4(1.F), glm::radians(_camera_rotations[1]), glm::vec3(0, 1, 0));
 			_last_rotations[1] = _camera_rotations[1];
 		}
 		if (_camera_rotations[2] != _last_rotations[2]) {
-			view = glm::rotate(glm::mat4(1.F), static_cast<float>(glm::radians(_camera_rotations[2])), glm::vec3(0, 0, 1));
+			view = glm::rotate(glm::mat4(1.F), glm::radians(_camera_rotations[2]), glm::vec3(0, 0, 1));
 			_last_rotations[2] = _camera_rotations[2];
 		}
 		if (_camera_rotations[3] != _last_rotations[3]) {
-			view = glm::rotate(glm::mat4(1.F), static_cast<float>(glm::radians(_camera_rotations[3])), glm::vec3(1, 1, 0));
+			view = glm::rotate(glm::mat4(1.F), glm::radians(_camera_rotations[3]), glm::vec3(1, 1, 0));
 			_last_rotations[3] = _camera_rotations[3];
 		}
 		glm::mat4 model = glm::translate(glm::mat4(1.0F), translation);

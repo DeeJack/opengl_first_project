@@ -7,7 +7,7 @@ namespace test
 	public:
 		Test() = default;
 
-		~Test() = default;
+		virtual ~Test() = default;
 
 		virtual void on_update(float deltaTime) {}
 		virtual void on_render() {}

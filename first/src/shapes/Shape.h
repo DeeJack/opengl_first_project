@@ -29,8 +29,8 @@ public:
 	Shape();
 
 	Shape(const Shape&) = delete;
-	
-	~Shape();
+
+	virtual ~Shape();
 
 	VertexArray* vertex_array() const;
 
