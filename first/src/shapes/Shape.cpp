@@ -13,6 +13,7 @@ Shape::~Shape()
 {
 	delete _vertex_array;
 	delete _index_buffer;
+	log("Destroyed Shape");
 }
 
 VertexArray* Shape::vertex_array() const

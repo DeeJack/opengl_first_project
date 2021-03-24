@@ -9,9 +9,11 @@ private:
 	unsigned char* _local_buffer = nullptr;
 	int _width = 0, _height = 0, _bpp = 0; // Bits per pixel
 public:
+	Texture();
 	Texture(const std::string& path);
 	~Texture();
 
+	void load(const std::string& path);
 	void bind(unsigned int slot = 0) const;
 	void unbind() const;
 

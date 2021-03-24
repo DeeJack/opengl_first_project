@@ -27,7 +27,9 @@ namespace test
 
 	void TestClearColor::on_imgui_render()
 	{
+		ImGui::Begin("Background color");
 		ImGui::ColorEdit4("Clear color", _color);
+		ImGui::End();
 	}
 }
 

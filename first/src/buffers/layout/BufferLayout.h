@@ -27,7 +27,7 @@ private:
 	std::vector<BufferLayoutElement> _elements;
 	unsigned int _stride = 0; // The 
 public:
-	BufferLayout() = default;
+	BufferLayout() : _stride(0) {}
 
 	template<typename T>
 	void push(unsigned int count)

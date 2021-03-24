@@ -2,8 +2,12 @@
 
 #include <functional>
 #include <random>
-
 #include "glm/vec4.hpp"
+
+namespace windows
+{
+	#include <windows.h>
+}
 
 static glm::vec4 normalize_color(short int red, short int green, short int blue, short int alpha)
 {

@@ -1,5 +1,7 @@
 #include "IndexBuffer.h"
+
 #include "../log.h"
+#include <string>
 
 IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count) : m_count(count)
 {
@@ -13,6 +15,7 @@ IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count) : m_count
 IndexBuffer::~IndexBuffer()
 {
 	glDeleteBuffers(1, &m_renderer_id);
+	log("Destroyed IndexBuffer (" + std::to_string(m_renderer_id) + ")");
 }
 
 void IndexBuffer::bind() const

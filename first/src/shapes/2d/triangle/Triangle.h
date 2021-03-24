@@ -31,4 +31,9 @@ public:
 	{
 		
 	}
+
+	void add_data(const float* data, unsigned size) override
+	{
+		
+	}
 };

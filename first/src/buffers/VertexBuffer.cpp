@@ -1,5 +1,7 @@
 #include <GLEW/glew.h>
 #include "VertexBuffer.h"
+#include "../log.h"
+#include <string>
 
 VertexBuffer::VertexBuffer(const void* data, unsigned int size)
 {
@@ -11,6 +13,7 @@ VertexBuffer::VertexBuffer(const void* data, unsigned int size)
 VertexBuffer::~VertexBuffer()
 {
 	glDeleteBuffers(1, &m_renderer_id);
+	log("Destroyed VertexBuffer (" + std::to_string(m_renderer_id) + ")");
 }
 
 void VertexBuffer::bind() const

@@ -1,0 +1,52 @@
+#pragma once
+#include "Test.h"
+#include "TestClearColor.h"
+#include "imgui/imgui.h"
+#include "sorting/Sorting.h"
+#include "textures/TestTextures.h"
+
+namespace test
+{
+	class TestMenu : Test {
+	private:
+		Test* _current_test = new TestTextures();
+	public:
+
+		~TestMenu()
+		{
+			delete _current_test;
+		}
+		
+		void on_update(float deltaTime) override
+		{
+			_current_test->on_update(deltaTime);
+		}
+
+		void on_render() override
+		{
+			_current_test->on_render();
+		}
+
+		void on_imgui_render() override
+		{
+			ImGui::Text("Select the test to show:");
+			if (ImGui::Button("TestClearColor"))
+			{
+				delete _current_test;
+				_current_test = new TestClearColor();
+			}
+			else if (ImGui::Button("TestSort"))
+			{
+				delete _current_test;
+				_current_test = new Sorting();
+			}
+			else if (ImGui::Button("Textures"))
+			{
+				delete _current_test;
+				_current_test = new TestTextures();
+			}
+
+			_current_test->on_imgui_render();
+		}
+	};
+}

@@ -2,13 +2,18 @@
 #include "Texture.h"
 #include "stb_image/stb_image.h"
 #include <stdexcept>
+#include "../log.h"
 
-Texture::Texture(const std::string& path)
-	: _file_path(path)
+Texture::Texture()
 {
+}
+
+void Texture::load(const std::string& path)
+{
+	_file_path = path;
 	stbi_set_flip_vertically_on_load(1); // OpenGL expect the texture to start from the bottom left
 	_local_buffer = stbi_load(path.c_str(), &_width, &_height, &_bpp, 4); // 4 because R, G, B, A
-		
+
 	glGenTextures(1, &_renderer_id);
 	bind(0);
 
@@ -29,14 +34,21 @@ Texture::Texture(const std::string& path)
 		stbi_image_free(_local_buffer);
 }
 
+Texture::Texture(const std::string& path)
+	: _file_path(path)
+{
+	load(path);
+}
+
 Texture::~Texture()
 {
 	glDeleteTextures(1, &_renderer_id);
+	log("Destroyed Texture (" + std::to_string(_renderer_id) + ")");
 }
 
 void Texture::bind(unsigned slot) const
 {
-	if (slot > 31 || slot < 0)
+	if (slot > 31)
 		throw std::invalid_argument("Invalid slot: " + std::to_string(slot));
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, _renderer_id);
