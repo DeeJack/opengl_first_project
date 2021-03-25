@@ -1,0 +1,8 @@
+// The projection specifies the space we are working in. It will transform the positions of the vertex in the -1,1 positions expected by OpenGL
+// The view controls the camera. We don't actually have a camera, so we need to translate all our object to a certain direction based on the camera
+// Translate the view to the left by 100 units (the first is the x)
+// The transformation of the object in the world
+//const glm::mat4 model = glm::translate(glm::mat4(1.0F), glm::vec3(200, 200, 0));
+// Model View Projection matrix
+//const glm::mat4 mvp = proj * view * model;		
+	// model = glm::rotate(model, glm::radians(45.F), cameraTranslation);
