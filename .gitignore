@@ -6,5 +6,5 @@ first/first.vcxproj
 first/first.vcxproj.filters
 first/first.vcxproj.user
 first/imgui.ini
-first/first/src/vendor/
-first/first/src/vendor/*
+first/src/vendor/
+first/src/vendor/*
