@@ -18,6 +18,7 @@ namespace test
 	 * un elemento non viene renderizzato per un certo periodo di tempo
 	 */
 	const int WIDTH = 1280;
+	int _comparisons = 0;
 	Sorting::Sorting() :
 		_shader("res/shaders/Basic.shader")
 	{
@@ -32,7 +33,9 @@ namespace test
 
 	void Sorting::init()
 	{
-		const int rectangle_width = WIDTH / rectangles_count;
+		int height;
+		get_window_size(&window_width, &height);
+		const int rectangle_width = window_width / rectangles_count;
 		_shader.bind();
 		for (int i = 0; i != rectangles_count; ++i)
 		{
@@ -96,12 +99,16 @@ namespace test
 			}
 		}
 		if (ImGui::Button("Bubble")) {
-			std::thread* bubble_thread = new std::thread(bubble_sort, std::ref(_sortingElements), std::ref(_shapes_mutex), std::ref(_ready));
+			_comparisons = 0;
+			std::thread* bubble_thread = new std::thread(bubble_sort, std::ref(_sortingElements), std::ref(_shapes_mutex), std::ref(_ready), std::ref(_comparisons));
 		}
 		if (ImGui::Button("Insertion")) {
-			std::thread* insertion_thread = new std::thread(insertion_sort, std::ref(_sortingElements), std::ref(_shapes_mutex), std::ref(_ready));
+			_comparisons = 0;
+			std::thread* insertion_thread = new std::thread(insertion_sort, std::ref(_sortingElements), std::ref(_shapes_mutex), std::ref(_ready), std::ref(_comparisons));
 		}
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0F / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		ImGui::Text("Elements: %d", rectangles_count);
+		ImGui::Text("Comparisons: %d", _comparisons);
 		ImGui::End();
 	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "../Test.h"
 #include "../../renderer/Renderer.h"
-#include "../../shapes/3d/Cube.h"
+#include "../../shapes/3d/CubeTest.h"
 #include "../../shapes/3d/Pyramid.h"
 #include "../../textures/Texture.h"
 #include "glm/ext/matrix_clip_space.hpp"
@@ -9,10 +9,10 @@
 
 namespace test
 {
-	class Test3d : public Test
+	class Test3dTextures : public Test
 	{
 	private:
-		Cube* _cube;
+		CubeTest* _cube;
 		Pyramid* _pyramid;
 		Shader _shader;
 		Renderer _renderer;
@@ -23,8 +23,8 @@ namespace test
 		float _last_rotations[4] = { 0.F, 0.F, 0.F, 0.F };
 		Texture texture;
 	public:
-		Test3d();
-		virtual ~Test3d();
+		Test3dTextures();
+		virtual ~Test3dTextures();
 		
 		void on_update(float deltaTime) override;
 		void on_render() override;

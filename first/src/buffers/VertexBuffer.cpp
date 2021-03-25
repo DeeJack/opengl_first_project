@@ -3,7 +3,7 @@
 #include "../log.h"
 #include <string>
 
-VertexBuffer::VertexBuffer(const void* data, unsigned int size)
+VertexBuffer::VertexBuffer(const void* data, unsigned int size, unsigned int count)
 {
 	glGenBuffers(1, &m_renderer_id); // Number of buffers, address of the buffers' name
 	glBindBuffer(GL_ARRAY_BUFFER, m_renderer_id); // Bind the buffer to a buffer type

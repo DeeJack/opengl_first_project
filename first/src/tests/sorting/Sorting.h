@@ -24,9 +24,10 @@ namespace test
 		glm::vec3 translation = glm::vec3(0, 0, 0);
 		Renderer _renderer;
 		const int rectangles_count = 55;
+		int window_width;
 	public:
 		Sorting();
-		~Sorting();
+		virtual ~Sorting();
 
 		void init();
 		

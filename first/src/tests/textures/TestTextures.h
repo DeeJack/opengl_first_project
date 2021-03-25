@@ -23,7 +23,7 @@ namespace test
 		Texture _texture;
 	public:
 		TestTextures();
-		~TestTextures();
+		virtual ~TestTextures();
 
 		void init();
 

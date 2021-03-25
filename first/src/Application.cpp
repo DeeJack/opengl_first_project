@@ -13,9 +13,7 @@
 #include "buffers/VertexArray.h"
 #include "util.h"
 #include "stb_image/stb_image.h"
-#include "tests/TestClearColor.h"
 #include "tests/TestMenu.h"
-#include "tests/sorting/Sorting.h"
 
 void run(GLFWwindow* window);
 
@@ -100,11 +98,16 @@ void run(GLFWwindow* window) {
 	//test::TestClearColor test;
 	test::TestMenu test;
 	/* Loop until the user closes the window */
+	double lastTime = glfwGetTime();
 	while (!glfwWindowShouldClose(window))
 	{
 		renderer.clear();
 
-		test.on_update(0.F);
+		const double currentTime = glfwGetTime();
+		const auto deltaTime = static_cast<float>(currentTime - lastTime);
+		lastTime = currentTime;
+		
+		test.on_update(deltaTime);
 		test.on_render();
 
 		ImGui_ImplOpenGL3_NewFrame();

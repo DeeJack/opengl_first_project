@@ -28,7 +28,7 @@ void test::TestTextures::init()
 		0.0F, 1.F
 	};
 	_shader.bind();
-
+	glEnable(GL_BLEND);
 	//_textureTask = new std::thread([this] {
 	_texture.load("res/textures/earth.png");
 	_texture.bind();

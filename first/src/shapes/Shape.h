@@ -51,5 +51,5 @@ public:
 	virtual void set_position(const float positions[]) = 0;
 	virtual void set_position(const glm::vec2 newBotLeft) = 0;
 
-	virtual void add_data(const float* data, unsigned size) = 0;
+	virtual void add_data(const float* data, unsigned count) = 0;
 };

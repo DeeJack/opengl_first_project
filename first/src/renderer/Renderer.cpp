@@ -29,6 +29,16 @@ void Renderer::draw(Shape& shape) const
 	GLCall(glDrawElements(GL_TRIANGLES, shape.index_buffer()->get_count(), GL_UNSIGNED_INT, nullptr)); // The indices pointer is already bound
 }
 
+void Renderer::drawWithoutIndexes(Shape& shape) const
+{
+	shape.shader()->bind();
+	const glm::vec4 color = shape.color();
+	shape.shader()->set_uniform4f("u_color", color.r, color.g, color.b, color.a);
+	shape.vertex_array()->bind();
+	GLCall(glDrawArrays(GL_LINE_STRIP, 0, 36)); // The indices pointer is already bound
+	//GLCall(glDrawArrays(GL_TRIANGLES, 0, 36)); // The indices pointer is already bound
+}
+
 void Renderer::clear() const
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
