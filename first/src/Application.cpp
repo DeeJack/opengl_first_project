@@ -12,10 +12,14 @@
 #include "renderer/Renderer.h"
 #include "buffers/VertexArray.h"
 #include "util.h"
-#include "stb_image/stb_image.h"
 #include "tests/TestMenu.h"
+#include "textures/Image.h"
 
 void run(GLFWwindow* window);
+
+void on_icon_loaded(Image& image)
+{
+}
 
 int main() noexcept
 {
@@ -36,17 +40,23 @@ int main() noexcept
 			glfwTerminate();
 			return -1;
 		}
-		int _width = 0, _height = 0, _bpp = 0; // Bits per pixel
-		stbi_set_flip_vertically_on_load(1); // OpenGL expect the texture to start from the bottom left
-		unsigned char* _local_buffer = stbi_load("res/textures/earth.png", &_width, &_height, &_bpp, 4); // 4 because R, G, B, A
+		//int width = 0, height = 0, bpp = 0; // Bits per pixel
+		//stbi_set_flip_vertically_on_load(1); // OpenGL expect the texture to start from the bottom left
+		//unsigned char* _local_buffer = stbi_load("res/textures/earth.png", &width, &height, &bpp, 4); // 4 because R, G, B, A
 
-		glfwSetWindowIcon(window, 1, new GLFWimage{ _width, _height, _local_buffer });
+		//glfwSetWindowIcon(window, 1, new GLFWimage{ width, height, _local_buffer });
 
-		if (_local_buffer)
-			stbi_image_free(_local_buffer);
+		//if (_local_buffer)
+		//	stbi_image_free(_local_buffer);
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(window);
+		Image* image = new Image();
+		image->load_image_async("res/textures/earth.png", [&window, &image]()
+		{
+			glfwSetWindowIcon(window, 1, new GLFWimage{ image->width(), image->height(), image->local_buffer() });
+			delete image;
+		});
 
 		//glfwSwapInterval(10);
 
