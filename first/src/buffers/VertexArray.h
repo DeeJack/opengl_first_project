@@ -17,6 +17,6 @@ public:
 	void unbind() const;
 
 	void add_buffer(VertexBuffer& vb, BufferLayout& layout);
-	VertexBuffer* bound_buffer();
-	BufferLayout* bound_layout();
+	VertexBuffer* bound_buffer() const;
+	BufferLayout* bound_layout() const;
 };

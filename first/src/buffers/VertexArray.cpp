@@ -42,12 +42,12 @@ void VertexArray::add_buffer(VertexBuffer& vb, BufferLayout& layout)
 	}
 }
 
-VertexBuffer* VertexArray::bound_buffer()
+VertexBuffer* VertexArray::bound_buffer() const
 {
 	return _bound_vertex;
 }
 
-BufferLayout* VertexArray::bound_layout()
+BufferLayout* VertexArray::bound_layout() const
 {
 	return _bound_layout;
 }

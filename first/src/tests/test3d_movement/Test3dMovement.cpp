@@ -132,8 +132,8 @@ namespace test
 		glm::mat4 model = glm::translate(glm::mat4(1.0F), translation);
 		const glm::mat4 mvp = proj * view * model;
 		_shader.set_uniform_mat4f("u_mvp", mvp);
-		_renderer.draw(*_cube);
-		_renderer.draw(*_pyramid);
+		_renderer.drawNoColor(*_cube);
+		_renderer.drawNoColor(*_pyramid);
 	}
 
 	void Test3dMovement::on_imgui_render()
