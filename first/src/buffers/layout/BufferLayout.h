@@ -8,16 +8,17 @@ struct BufferLayoutElement
 	unsigned int count; // The count of elements of the vertex
 	unsigned char normalized; // Whether the element needs to be normalized
 
-	static unsigned int size_of_type(unsigned int type)
+	static unsigned int size_of_type(const unsigned int type)
 	{
 		switch (type)
 		{
 		case GL_FLOAT: return sizeof(GLfloat);
 		case GL_UNSIGNED_INT: return sizeof(GLuint);
 		case GL_UNSIGNED_BYTE: return sizeof(GLubyte);
+		default: 
+			ASSERT(false);
+			return 0;
 		}
-		ASSERT(false);
-		return 0;
 	}
 };
 
@@ -25,9 +26,9 @@ class BufferLayout
 {
 private:
 	std::vector<BufferLayoutElement> _elements;
-	unsigned int _stride = 0; // The 
+	unsigned int _stride = 0; // The "length" of a buffer's element
 public:
-	BufferLayout() : _stride(0) {}
+	BufferLayout() = default;
 
 	template<typename T>
 	void push(unsigned int count)

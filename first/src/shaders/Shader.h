@@ -17,11 +17,11 @@ private:
 	std::string _file_path;
 	std::unordered_map<std::string, int> _location_cache;
 public:
-	Shader(const std::string& file_path);
+	explicit Shader(const std::string& file_path);
 	~Shader();
 
 	void bind() const;
-	void unbind() const;
+	static void unbind();
 
 	// Uniform
 	void set_uniform4f(const std::string& name, float v0, float v1, float v2, float v3);
@@ -30,7 +30,7 @@ public:
 
 private:
 	unsigned int compile_shader(unsigned int type, const std::string& source);
-	unsigned int create_shader(const std::string& vertexShader, const std::string& fragmentShader);
-	ShaderProgramSource parse_shader(const std::string& file_name);
+	unsigned int create_shader(const std::string& vertex_shader, const std::string& fragment_shader);
+	ShaderProgramSource parse_shader(const std::string& file_name) const;
 	int get_uniform_location(const std::string& name);
 };

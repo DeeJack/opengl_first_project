@@ -22,6 +22,7 @@ namespace test
 			0.6F, 0.F, 1.F,
 		};
 		_cube = new Cube(glm::vec3(100, 100, 100), glm::vec3(300, 300, 300), &_shader);
+		_cube->fillWithIndexes();
 		float textureCoords[] = {
 			0.0F, 0.0F,
 			1.0F, 0.0F,

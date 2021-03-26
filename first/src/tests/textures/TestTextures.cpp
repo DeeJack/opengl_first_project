@@ -2,7 +2,7 @@
 
 #include <functional>
 
-#include "../../shapes/2d/rectangle/Rectangle.h"
+#include "../../shapes/2d/Rectangle.h"
 #include "../../textures/Texture.h"
 #include "imgui/imgui.h"
 

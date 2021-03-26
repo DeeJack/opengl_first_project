@@ -4,6 +4,15 @@
 
 #define ASSERT(x) if (!(x)) __debugbreak()
 
+static void GLAPIENTRY LOG_ERROR(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+{
+	if (type == 33361) // || type == 33356
+		return;
+	std::cout << "[OpenGL Error](" << type << ") " << message << std::endl;
+	std::cout << source << ", type: " << type << ", id: " << id << ", severity: " << severity << ", message: " << message << std::endl;
+	__debugbreak();
+}
+
 static void log(const std::string& s)
 {
 	std::cout << s << std::endl;

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Shape.h"
+#include "../Shape.h"
 #include "glm/vec2.hpp"
 
 class Rectangle : public Shape
@@ -49,8 +49,9 @@ public:
 			newBotLeft.x, newBotLeft.y + _height
 		};
 		vertex_array()->bind();
-		vertex_array()->bound_buffer()->bind();
-		vertex_array()->bound_buffer()->set_data(_positions, 4 * 2 * sizeof(float));
+		// TODO: remove comments
+		//vertex_array()->bound_buffer()->bind();
+		//vertex_array()->bound_buffer()->set_data(_positions, 4 * 2 * sizeof(float));
 	}
 
 	void set_position(const float positions[8]) override
@@ -60,8 +61,9 @@ public:
 		for (int i = 0; i != 8; ++i)
 			_positions[i] = positions[i];
 		vertex_array()->bind();
-		vertex_array()->bound_buffer()->bind();
-		vertex_array()->bound_buffer()->set_data(positions, 4 * 2 * sizeof(float));
+		// TODO: remove comments
+		//vertex_array()->bound_buffer()->bind();
+		//vertex_array()->bound_buffer()->set_data(positions, 4 * 2 * sizeof(float));
 	}
 
 	void add_data(const float* data, unsigned count) override
@@ -82,20 +84,13 @@ public:
 			if (i % 4 == 0)
 				std::cout << "\n";
 		}
-		vertex_array()->bound_buffer()->unbind();
-		delete vertex_array()->bound_buffer();
+		// TODO: remove comments
+		//vertex_array()->bound_buffer()->unbind();
+		//delete vertex_array()->bound_buffer();
 		auto vb = new VertexBuffer(fullData, 4 * 4 * sizeof(float));
 		BufferLayout* layout = new BufferLayout();
 		layout->push<float>(2);
 		layout->push<float>(2);
 		vertex_array()->add_buffer(*vb, *layout);
-		return;
-		
-		vertex_array()->bind();
-		vertex_array()->bound_buffer()->bind();
-		// TODO si faceva così o con attrib???
-		vertex_array()->bound_buffer()->set_data(fullData, (8 + count) * sizeof(float));
-		vertex_array()->bound_layout()->push<float>(2);
-		vertex_array()->add_buffer(*vertex_array()->bound_buffer(), *vertex_array()->bound_layout());
 	}
 };

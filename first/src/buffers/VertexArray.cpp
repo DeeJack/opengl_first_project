@@ -3,36 +3,35 @@
 
 VertexArray::VertexArray()
 {
-	glGenVertexArrays(1, &_array_id);
+	glGenVertexArrays(1, &_renderer_id);
 }
 
 VertexArray::~VertexArray()
 {
-	glDeleteVertexArrays(1, &_array_id);
-	log("Destroyed VertexArray (" + std::to_string(_array_id) + ")");
+	log("Destroyed VertexArray (" + std::to_string(_renderer_id) + ")");
+	glDeleteVertexArrays(1, &_renderer_id);
 }
 
 void VertexArray::bind() const
 {
-	glBindVertexArray(_array_id);
+	glBindVertexArray(_renderer_id);
 }
 
-void VertexArray::unbind() const
+void VertexArray::unbind()
 {
 	glBindVertexArray(0);
 }
 
-void VertexArray::add_buffer(VertexBuffer& vb, BufferLayout& layout)
+void VertexArray::add_buffer(const VertexBuffer& vb, const BufferLayout& layout)
 {
+	VertexBuffer::unbind();
 	bind();
 	vb.bind();
-	_bound_vertex = &vb;
-	_bound_layout = &layout;
+	_vertices_count = vb.vertices_count();
 	const auto& elements = layout.get_elements();
 	unsigned int offset = 0;
 	for (unsigned int i = 0; i != elements.size(); ++i)
 	{
-		auto stride_test = layout.get_stride();
 		const auto& element = elements[i];
 		glEnableVertexAttribArray(i); // Enable the attribute
 		// Specify the layout of this vertex buffer
@@ -42,12 +41,7 @@ void VertexArray::add_buffer(VertexBuffer& vb, BufferLayout& layout)
 	}
 }
 
-VertexBuffer* VertexArray::bound_buffer() const
+unsigned VertexArray::vertices_count() const
 {
-	return _bound_vertex;
-}
-
-BufferLayout* VertexArray::bound_layout() const
-{
-	return _bound_layout;
+	return _vertices_count;
 }

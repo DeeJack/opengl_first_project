@@ -3,27 +3,31 @@
 #include "../log.h"
 #include <string>
 
-IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count) : m_count(count)
+IndexBuffer::IndexBuffer(const unsigned int* data, const unsigned int count)
+	: _indices_count(count)
 {
-	ASSERT(sizeof(unsigned int) == sizeof(GLuint));
-	
-	glGenBuffers(1, &m_renderer_id); // Number of buffers, address of the buffers' name
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_renderer_id); // Bind the buffer to a buffer type
+	glGenBuffers(1, &_renderer_id); // Number of buffers, address of the buffers' name
+	bind();
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW);
 }
 
 IndexBuffer::~IndexBuffer()
 {
-	glDeleteBuffers(1, &m_renderer_id);
-	log("Destroyed IndexBuffer (" + std::to_string(m_renderer_id) + ")");
+	log("Destroyed IndexBuffer (" + std::to_string(_renderer_id) + ")");
+	glDeleteBuffers(1, &_renderer_id);
 }
 
 void IndexBuffer::bind() const
 {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_renderer_id); // Bind the buffer to a buffer type
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _renderer_id); // Bind the buffer to a buffer type
 }
 
-void IndexBuffer::unbind() const
+void IndexBuffer::unbind()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // Bind the buffer to a buffer type
+}
+
+unsigned IndexBuffer::get_count() const
+{
+	return _indices_count;
 }

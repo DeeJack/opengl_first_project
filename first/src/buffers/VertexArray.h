@@ -5,18 +5,19 @@
 class VertexArray
 {
 private:
-	unsigned int _array_id;
-	VertexBuffer* _bound_vertex;
-	BufferLayout* _bound_layout;
+	unsigned int _renderer_id;
+	unsigned int _vertices_count = 0; // The number of vertices for the vertex array associated with the array
 public:
 	VertexArray();
 	VertexArray(const VertexArray& va) = delete;
 	~VertexArray();
 
 	void bind() const;
-	void unbind() const;
+	static void unbind();
 
-	void add_buffer(VertexBuffer& vb, BufferLayout& layout);
-	VertexBuffer* bound_buffer() const;
-	BufferLayout* bound_layout() const;
+	void add_buffer(const VertexBuffer& vb, const BufferLayout& layout);
+
+	unsigned int vertices_count() const;
+
+	VertexArray& operator=(const VertexArray&) = delete;
 };

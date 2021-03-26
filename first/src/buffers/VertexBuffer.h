@@ -2,17 +2,24 @@
 class VertexBuffer
 {
 private:
-	unsigned int m_renderer_id;
-	unsigned int _count;
+	unsigned int _renderer_id = 0;
+	unsigned int _vertices_count = 0;
 public:
-	VertexBuffer(const void* data, unsigned int size, unsigned int count = 0);
-	VertexBuffer(const VertexBuffer&) = delete;
+	/*
+	 * data: the array of vertices
+	 * size: the size of the array
+	 * vertices_count: the count of the vertices, use only if you want to draw without indices
+	 */
+	VertexBuffer(const void* data, unsigned int size, unsigned int vertices_count = 0);
+	VertexBuffer(const VertexBuffer&) = delete; // Copy of the object not allowed!
 	~VertexBuffer();
 
 	void bind() const;
-	void unbind() const;
+	static void unbind();
 
-	unsigned int count() const;
+	unsigned int vertices_count() const;
 
 	void set_data(const void* data, unsigned int size) const;
+
+	VertexBuffer& operator=(const VertexBuffer&) = delete; // Copy assignment not allowed
 };

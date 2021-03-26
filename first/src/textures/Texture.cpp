@@ -4,14 +4,19 @@
 #include <stdexcept>
 #include "../log.h"
 
-Texture::Texture()
+Texture::Texture() = default;
+
+Texture::Texture(const std::string & path)
+	: _file_path(path)
 {
+	load(path);
 }
 
 void Texture::load(const std::string& path)
 {
 	_file_path = path;
 	stbi_set_flip_vertically_on_load(1); // OpenGL expect the texture to start from the bottom left
+	int _bpp = 0; // Bits per pixel
 	_local_buffer = stbi_load(path.c_str(), &_width, &_height, &_bpp, 4); // 4 because R, G, B, A
 
 	glGenTextures(1, &_renderer_id);
@@ -34,12 +39,6 @@ void Texture::load(const std::string& path)
 		stbi_image_free(_local_buffer);
 }
 
-Texture::Texture(const std::string& path)
-	: _file_path(path)
-{
-	load(path);
-}
-
 Texture::~Texture()
 {
 	unbind();
@@ -55,7 +54,7 @@ void Texture::bind(unsigned int slot) const
 	glBindTexture(GL_TEXTURE_2D, _renderer_id);
 }
 
-void Texture::unbind() const
+void Texture::unbind()
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

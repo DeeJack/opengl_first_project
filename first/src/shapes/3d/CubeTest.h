@@ -1,7 +1,7 @@
 #pragma once
 #include "../Shape.h"
 
-class CubeTest : public Shape
+class CubeTestOld : public Shape
 {
 private:
 	float* _positions;
@@ -9,7 +9,7 @@ private:
 	int _vertexes;
 	char* _letters;
 public:
-	CubeTest(glm::vec3 first, glm::vec3 second, Shader* shader)
+	CubeTestOld(glm::vec3 first, glm::vec3 second, Shader* shader)
 	{
 		_positions = new float[] {
 			first.x, first.y, first.z,// A (first) 0
@@ -31,8 +31,8 @@ public:
 			5, 7, 6, // FHG
 			6, 0, 7, // GAH
 			0, 3, 7, // ADH
-			2, 5, 3, // CFD
-			5, 7, 3, // FHD
+			3, 2, 7, // DCH
+			2, 5, 7, // CFH
 			0, 1, 6, //ABG
 			1, 4, 6 // BEG
 		};
@@ -59,8 +59,6 @@ public:
 		auto* layout = new BufferLayout();
 		layout->push<float>(3); // Coords
 		va->add_buffer(*vb, *layout);
-		//IndexBuffer* ib = new IndexBuffer(indexes, 12 * 3);
-		//set_index_buffer(ib);
 		set_vertex_array(va);
 		set_shader(shader);
 	}
@@ -69,8 +67,8 @@ public:
 	void set_position(const glm::vec2 newBotLeft) override {}
 	void add_data(const float* data, unsigned count) override
 	{
-		float* fullData = new float[_vertexes * 3 + count];
-		int dataPerVertex = count / _vertexes;
+		auto* fullData = new float[_vertexes * 3 + count];
+		const int dataPerVertex = count / _vertexes;
 		int index = 0, index2 = 0;
 		for (int i = 0; i < _vertexes * 3 + count; i += (3 + dataPerVertex))
 		{

@@ -4,7 +4,7 @@
 
 #include "sorting_utils.h"
 #include "../../util.h"
-#include "../../shapes/2d/rectangle/Rectangle.h"
+#include "../../shapes/2d/Rectangle.h"
 #include "glm/fwd.hpp"
 #include "glm/gtx/transform.hpp"
 #include "imgui/imgui.h"

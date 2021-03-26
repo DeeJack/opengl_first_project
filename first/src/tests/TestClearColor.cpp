@@ -3,6 +3,8 @@
 #include <GLEW/glew.h>
 
 
+
+#include "../shapes/2d/Circle.h"
 #include "../shapes/2d/polygon/Pentagon.h"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/gtx/transform.hpp"
@@ -20,7 +22,8 @@ namespace test
 			{115.0F, 40.0F},
 			{130.0F, 70.0F}
 		};
-		_shapes.emplace_back(new Pentagon(vertexes, &_shader));
+		//_shapes.emplace_back(new Pentagon(vertexes, &_shader));
+		_shapes.emplace_back(new Circle(glm::vec2(400.F, 400.F), 30.F, &_shader));
 		
 	}
 
@@ -42,7 +45,7 @@ namespace test
 		glm::mat4 mvp = proj * view * model;
 		_shader.set_uniform_mat4f("u_mvp", mvp);
 		for (const auto shape : _shapes)
-			renderer.drawNoColor(*shape);
+			renderer.draw_without_indexes_triangle_fan(*shape);
 	}
 
 	void TestClearColor::on_imgui_render()

@@ -2,16 +2,17 @@
 class IndexBuffer
 {
 private:
-	unsigned int m_renderer_id;
-	unsigned int m_count;
+	unsigned int _renderer_id = 0;
+	unsigned int _indices_count;
 public:
-	IndexBuffer(const unsigned int* data, unsigned int count);
+	IndexBuffer(const unsigned int* data, const unsigned int count);
 	IndexBuffer(const IndexBuffer&) = delete;
 	~IndexBuffer();
 
 	void bind() const;
+	static void unbind();
 
-	void unbind() const;
+	unsigned int get_count() const;
 
-	inline unsigned int get_count() const { return m_count; }
+	IndexBuffer& operator=(const IndexBuffer&) = delete;
 };

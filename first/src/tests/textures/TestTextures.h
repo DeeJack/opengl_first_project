@@ -4,7 +4,7 @@
 
 #include "../Test.h"
 #include "../../renderer/Renderer.h"
-#include "../../shapes/2d/rectangle/Rectangle.h"
+#include "../../shapes/2d/Rectangle.h"
 #include "../../textures/Texture.h"
 #include "../shapes/Shape.h"
 #include "glm/gtx/transform.hpp"

@@ -6,13 +6,13 @@
 
 class Renderer
 {
-private:
 public:
 	void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
 	void draw(Shape& shape) const;
-	void drawNoColor(Shape& shape) const;
-	void drawWithoutIndexes(Shape& shape) const;
-	void drawWithoutIndexesNoColor(Shape& shape) const;
+	void draw_no_color(Shape& shape) const;
+	void draw_without_indexes(Shape& shape) const;
+	void draw_without_indexes_no_color(Shape& shape) const;
+	void draw_without_indexes_triangle_fan(Shape& shape) const;
 
 	void clear() const;
 };

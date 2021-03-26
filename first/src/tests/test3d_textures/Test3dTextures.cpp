@@ -21,7 +21,8 @@ namespace test
 			0.F, 0.6F, 1.F,
 			0.6F, 0.F, 1.F,
 		};*/
-		_cube = new CubeTest(glm::vec3(100, 100, 100), glm::vec3(300, 300, 300), &_shader);
+		_cube = new Cube(glm::vec3(100, 100, 100), glm::vec3(300, 300, 300), &_shader);
+		_cube->fillWithoutIndexes();
 		float textureCoords[] = {
 			0.0F, 0.0F,
 			1.0F, 0.0F,
@@ -87,7 +88,7 @@ namespace test
 		const glm::mat4 mvp = proj * view * model;
 		_shader.set_uniform_mat4f("u_mvp", mvp);
 		//_renderer.draw(*_cube);
-		_renderer.drawWithoutIndexes(*_cube);
+		_renderer.draw_without_indexes(*_cube);
 	}
 
 	void Test3dTextures::on_imgui_render()

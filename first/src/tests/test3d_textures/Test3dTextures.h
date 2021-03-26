@@ -1,7 +1,7 @@
 #pragma once
 #include "../Test.h"
 #include "../../renderer/Renderer.h"
-#include "../../shapes/3d/CubeTest.h"
+#include "../../shapes/3d/Cube.h"
 #include "../../shapes/3d/Pyramid.h"
 #include "../../textures/Texture.h"
 #include "glm/ext/matrix_clip_space.hpp"
@@ -12,7 +12,7 @@ namespace test
 	class Test3dTextures : public Test
 	{
 	private:
-		CubeTest* _cube;
+		Cube* _cube;
 		Pyramid* _pyramid;
 		Shader _shader;
 		Renderer _renderer;

@@ -25,10 +25,10 @@ Shader::~Shader()
 
 void Shader::bind() const
 {
-	GLCall(glUseProgram(_renderer_id));
+	glUseProgram(_renderer_id);
 }
 
-void Shader::unbind() const
+void Shader::unbind()
 {
 	glUseProgram(0);
 }
@@ -75,7 +75,8 @@ unsigned int Shader::compile_shader(unsigned int type, const std::string& source
 	{
 		int length;
 		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-		const auto message = static_cast<char*>(alloca(length * sizeof(char)));
+		auto* message = static_cast<char*>(_malloca(length * sizeof(char)));
+		//auto* message = static_cast<char*>(alloca(length * sizeof(char)));
 		glGetShaderInfoLog(id, length, &length, message);
 		std::cout << "FAILED TO COMPILE " <<
 			(type == GL_VERTEX_SHADER ? "vertex" : "fragment") << " SHADER!" << std::endl;
@@ -87,7 +88,7 @@ unsigned int Shader::compile_shader(unsigned int type, const std::string& source
 	return id;
 }
 
-ShaderProgramSource Shader::parse_shader(const std::string& file_name)
+ShaderProgramSource Shader::parse_shader(const std::string& file_name) const
 {
 	std::ifstream stream(file_name);
 
@@ -110,7 +111,7 @@ ShaderProgramSource Shader::parse_shader(const std::string& file_name)
 		}
 		else
 		{
-			ss[static_cast<int>(type)] << line << "\n";
+			ss[static_cast<int>(type)] << line << '\n';
 		}
 	}
 	return { ss[0].str(), ss[1].str() };
@@ -120,13 +121,13 @@ ShaderProgramSource Shader::parse_shader(const std::string& file_name)
  * Vertex shader: the position of the vertex that needs to be drawn on the screen
  * Fragment shader (or pixel shader): the color of the pixels
  */
-unsigned int Shader::create_shader(const std::string& vertexShader, const std::string& fragmentShader)
+unsigned int Shader::create_shader(const std::string& vertex_shader, const std::string& fragment_shader)
 {
 	// Create a program object, that is an object to which shader objects can be attached
 	const unsigned int program = glCreateProgram();
 	// Create and compile the 2 shaders
-	const unsigned int vs = compile_shader(GL_VERTEX_SHADER, vertexShader);
-	const unsigned int fs = compile_shader(GL_FRAGMENT_SHADER, fragmentShader);
+	const unsigned int vs = compile_shader(GL_VERTEX_SHADER, vertex_shader);
+	const unsigned int fs = compile_shader(GL_FRAGMENT_SHADER, fragment_shader);
 
 	// Attach the shaders to the program
 	GLCall(glAttachShader(program, vs));

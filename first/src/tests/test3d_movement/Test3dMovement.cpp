@@ -23,6 +23,7 @@ namespace test
 			0.6F, 0.F, 1.F,
 		};
 		_cube = new Cube(glm::vec3(100, 100, 100), glm::vec3(300, 300, 300), &_shader);
+		_cube->fillWithIndexes();
 		//float textureCoords[] = {
 		//	0.0F, 0.0F,
 		//	1.0F, 0.0F,
@@ -132,8 +133,8 @@ namespace test
 		glm::mat4 model = glm::translate(glm::mat4(1.0F), translation);
 		const glm::mat4 mvp = proj * view * model;
 		_shader.set_uniform_mat4f("u_mvp", mvp);
-		_renderer.drawNoColor(*_cube);
-		_renderer.drawNoColor(*_pyramid);
+		_renderer.draw_no_color(*_cube);
+		_renderer.draw_no_color(*_pyramid);
 	}
 
 	void Test3dMovement::on_imgui_render()
