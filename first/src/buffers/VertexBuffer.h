@@ -19,7 +19,8 @@ public:
 
 	unsigned int vertices_count() const;
 
-	void set_data(const void* data, unsigned int size) const;
+	void change_data(const void* data, unsigned int size) const;
+	//void change_data(const void* data, unsigned int size) const;
 
 	VertexBuffer& operator=(const VertexBuffer&) = delete; // Copy assignment not allowed
 };

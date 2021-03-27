@@ -12,9 +12,10 @@ namespace test
 		Renderer renderer;
 		std::vector<Shape*> _shapes;
 		Shader _shader;
-		const glm::mat4 proj = glm::ortho(0.0F, 1280.0F, 0.0F, 720.0F, -100.0F, 100.0F);
+		const glm::mat4 proj = glm::ortho(0.0F, 1280.0F, 0.0F, 720.0F, -500.0F, 500.0F);
 		glm::mat4 view = glm::translate(glm::mat4(1.0F), glm::vec3(0.0F, 0.0F, 0.0F));
 		glm::vec3 translation = glm::vec3(0, 0, 0);
+		glm::mat4 model = glm::mat4(1.0F);
 	public:
 		TestClearColor();
 		~TestClearColor();

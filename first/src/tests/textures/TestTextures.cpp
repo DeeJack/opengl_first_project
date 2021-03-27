@@ -31,12 +31,15 @@ void test::TestTextures::init()
 	glEnable(GL_BLEND);
 	//_textureTask = new std::thread([this] {
 	_texture.load("res/textures/earth.png");
+	//, [this]()
+	//{
 	_texture.bind();
+	//});
 	//});
 
 	const float size = 600.F;
 	const glm::vec2 pos(100, 100.F);
-	_box = new Rectangle(pos, size, size, &_shader);
+	_box = new Rectangle(pos, size, size);
 	_box->add_data(textCoord, 2 * 4);
 }
 
@@ -51,7 +54,7 @@ void test::TestTextures::on_render()
 	const glm::mat4 mvp = proj * view * model;
 	_shader.set_uniform1i("u_texture", 0);
 	_shader.set_uniform_mat4f("u_mvp", mvp);
-	_renderer.draw(*_box);
+	_renderer.draw(*_box, _shader);
 }
 
 void test::TestTextures::on_imgui_render()

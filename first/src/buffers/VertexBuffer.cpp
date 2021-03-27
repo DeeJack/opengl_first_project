@@ -7,7 +7,9 @@ VertexBuffer::VertexBuffer(const void* data, const unsigned int size, const unsi
 	: _vertices_count(vertices_count)
 {
 	glGenBuffers(1, &_renderer_id); // Number of buffers, address of the buffers' name
-	set_data(data, size);
+	bind();
+	glBufferStorage(GL_ARRAY_BUFFER, size, 0, GL_MAP_WRITE_BIT | GL_MAP_READ_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
+	change_data(data, size);
 }
 
 VertexBuffer::~VertexBuffer()
@@ -31,8 +33,22 @@ unsigned int VertexBuffer::vertices_count() const
 	return _vertices_count;
 }
 
-void VertexBuffer::set_data(const void* data, const unsigned int size) const
+void VertexBuffer::change_data(const void* data, const unsigned int size) const
 {
 	bind();
-	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+	float* ptr = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE);
+	//glNamedBufferSubData(_renderer_id, 0, size, data);
+	memcpy(ptr, data, size);
+	glUnmapBuffer(GL_ARRAY_BUFFER);
+	//bind();
+	//glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 }
+
+//void VertexBuffer::change_data(const void* data, unsigned int size) const
+//{
+	//bind();
+	//float* ptr = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE);
+	//glNamedBufferSubData(_renderer_id, 0, size, data);
+	//memcpy(ptr, data, size);
+	//glUnmapBuffer(GL_ARRAY_BUFFER);
+//}

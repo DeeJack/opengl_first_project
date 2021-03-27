@@ -1,13 +1,11 @@
 #include "Shape.h"
 
-Shape::Shape(VertexArray* vertexes, IndexBuffer* buffer, Shader* shader) : _vertex_array(vertexes),
-_index_buffer(buffer), _shader(shader)
+Shape::Shape(VertexArray* vertexes, IndexBuffer* buffer) : _vertex_array(vertexes),
+_index_buffer(buffer)
 {
 }
 
-Shape::Shape() : _vertex_array(nullptr), _index_buffer(nullptr), _shader(nullptr)
-{
-}
+Shape::Shape() = default;
 
 Shape::~Shape()
 {
@@ -35,16 +33,6 @@ IndexBuffer* Shape::index_buffer() const
 void Shape::set_index_buffer(IndexBuffer* const index_buffer)
 {
 	_index_buffer = index_buffer;
-}
-
-Shader* Shape::shader() const
-{
-	return _shader;
-}
-
-void Shape::set_shader(Shader* shader)
-{
-	_shader = shader;
 }
 
 void Shape::set_color(const glm::vec4& color)

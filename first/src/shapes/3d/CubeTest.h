@@ -1,3 +1,4 @@
+/*
 #pragma once
 #include "../Shape.h"
 
@@ -60,7 +61,6 @@ public:
 		layout->push<float>(3); // Coords
 		va->add_buffer(*vb, *layout);
 		set_vertex_array(va);
-		set_shader(shader);
 	}
 
 	void set_position(const float positions[]) override {}
@@ -102,3 +102,4 @@ public:
 		vertex_array()->add_buffer(*vb, *layout);
 	}
 };
+*/

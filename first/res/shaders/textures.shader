@@ -1,8 +1,8 @@
 #shader vertex
 #version 330 core
 
-layout(location = 0) in vec2 position; // the index (0), a vec4 and not a vec2 because position is vec4
-layout(location = 1) in vec2 texCoord;
+in vec2 position; // the index (0), a vec4 and not a vec2 because position is vec4
+in vec2 texCoord;
 
 uniform mat4 u_mvp; // Model View projection matrix
 

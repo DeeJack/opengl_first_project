@@ -23,7 +23,7 @@ private:
 		1, 4, 6 // BEG
 	};
 public:
-	Cube(glm::vec3 first, glm::vec3 second, Shader* shader)
+	Cube(glm::vec3 first, glm::vec3 second)
 	{
 		_positions = {
 			first.x, first.y, first.z,// A (first) 0
@@ -35,7 +35,6 @@ public:
 			first.x, first.y, second.z, // G 6
 			first.x, second.y, second.z // H 7
 		};
-		set_shader(shader);
 	}
 
 	void fillWithIndexes()
@@ -76,10 +75,9 @@ public:
 	void add_data(const float* data, unsigned count) override
 	{
 		std::vector<float> fullData;
-		//auto* fullData = new float[_vertexes * 3 + count];
 		const int dataPerVertex = count / _vertexes;
 		int index = 0, index2 = 0;
-		for (int i = 0; i < _vertexes * 3 + count; i += (3 + dataPerVertex))
+		for (int i = 0; i < static_cast<int>(_vertexes * 3 + count); i += (3 + dataPerVertex))
 		{
 			fullData.emplace_back(_full_data[index]);
 			fullData.emplace_back(_full_data[index + 1]);
@@ -91,7 +89,7 @@ public:
 				index2++;
 			}
 		}
-		for (int i = 1; i < ((_vertexes * 3) + count + 1); ++i)
+		for (int i = 1; i < static_cast<int>(((_vertexes * 3) + count + 1)); ++i)
 		{
 			std::cout << fullData[i - 1] << ", ";
 			if (i % (3 + dataPerVertex) == 0)
@@ -99,8 +97,8 @@ public:
 				std::cout << "\n";
 			}
 		}
-		auto vb = new VertexBuffer(&fullData[0], fullData.size() * sizeof(float), _vertexes);
-		BufferLayout* layout = new BufferLayout();
+		auto* vb = new VertexBuffer(&fullData[0], fullData.size() * sizeof(float), _vertexes);
+		auto* layout = new BufferLayout();
 		layout->push<float>(3);
 		layout->push<float>(dataPerVertex);
 		vertex_array()->add_buffer(*vb, *layout);

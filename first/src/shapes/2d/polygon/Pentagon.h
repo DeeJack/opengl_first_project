@@ -1,22 +1,22 @@
 #pragma once
 #include "../../Shape.h"
 #include "glm/vec2.hpp"
+#include <array>
 
 class Pentagon : public Shape
 {
-private:
-	float* _positions = new float[5 * 2];
 public:
-	Pentagon(const glm::vec2 vertexes[5], Shader* shader) : Shape()
+	Pentagon(const glm::vec2 vertexes[5]) : Shape()
 	{
+		std::array<float, 10> _positions;
 		for (int i = 0; i < 5; i++)
 		{
 			_positions[i * 2] = vertexes[i].x * 2;
 			_positions[i * 2 + 1] = vertexes[i].y * 2;
 		}
-		auto va = new VertexArray();
-		auto vb = new VertexBuffer(_positions, 5 * 2 * sizeof(float));
-		BufferLayout* layout = new BufferLayout();
+		auto* va = new VertexArray();
+		auto* vb = new VertexBuffer(&_positions[0], 5 * 2 * sizeof(float));
+		auto* layout = new BufferLayout();
 		layout->push<float>(2);
 		va->add_buffer(*vb, *layout);
 		const unsigned int indexes[] = { 
@@ -24,15 +24,9 @@ public:
 			0, 2, 3, // ACD
 			0, 3, 4, // ADE
 		};
-		IndexBuffer* ib = new IndexBuffer(indexes, 3 * 3);
+		auto* ib = new IndexBuffer(indexes, 3 * 3);
 		set_index_buffer(ib);
 		set_vertex_array(va);
-		set_shader(shader);
-	}
-
-	virtual ~Pentagon()
-	{
-		delete _positions;
 	}
 
 	void set_position(const glm::vec2 newBotLeft) override

@@ -42,7 +42,7 @@ namespace test
 			const float x = rectangle_width * static_cast<float>(i);
 			const int value = random_number(10, 500);
 			auto pos = glm::vec2(x, 0.F);
-			auto* rec = new Rectangle(pos, rectangle_width - 5, static_cast<float>(value), &_shader);
+			auto* rec = new Rectangle(pos, rectangle_width - 5, static_cast<float>(value));
 			_sortingElements.emplace_back(SortingElement{ rec, static_cast<float>(value), pos });
 			_positions.emplace_back(pos);
 			_rectangles.emplace_back(rec);
@@ -66,7 +66,7 @@ namespace test
 		_shader.set_uniform_mat4f("u_mvp", mvp);
 		for (const auto& x : _rectangles)
 		{
-			_renderer.draw(*x);
+			_renderer.draw(*x, _shader);
 		}
 	}
 
@@ -92,7 +92,7 @@ namespace test
 				float x = 22 * static_cast<float>(i);
 				int value = random_number(10, 500);
 				auto pos = glm::vec2(x, 0.F);
-				auto* rec = new Rectangle(pos, 20.F, static_cast<float>(value), &_shader);
+				auto* rec = new Rectangle(pos, 20.F, static_cast<float>(value));
 				_sortingElements.emplace_back(SortingElement{ rec, static_cast<float>(value), pos });
 				_positions.emplace_back(pos);
 				_rectangles.push_back(rec);

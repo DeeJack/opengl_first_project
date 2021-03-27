@@ -17,10 +17,6 @@
 
 void run(GLFWwindow* window);
 
-void on_icon_loaded(Image& image)
-{
-}
-
 int main() noexcept
 {
 	try
@@ -40,18 +36,10 @@ int main() noexcept
 			glfwTerminate();
 			return -1;
 		}
-		//int width = 0, height = 0, bpp = 0; // Bits per pixel
-		//stbi_set_flip_vertically_on_load(1); // OpenGL expect the texture to start from the bottom left
-		//unsigned char* _local_buffer = stbi_load("res/textures/earth.png", &width, &height, &bpp, 4); // 4 because R, G, B, A
-
-		//glfwSetWindowIcon(window, 1, new GLFWimage{ width, height, _local_buffer });
-
-		//if (_local_buffer)
-		//	stbi_image_free(_local_buffer);
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(window);
-		Image* image = new Image();
+		auto* image = new Image();
 		image->load_image_async("res/textures/earth.png", [&window, &image]()
 		{
 			glfwSetWindowIcon(window, 1, new GLFWimage{ image->width(), image->height(), image->local_buffer() });
@@ -95,7 +83,6 @@ void run(GLFWwindow* window) {
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
-
 	const Renderer renderer;
 
 	ImGui::CreateContext();
@@ -105,7 +92,6 @@ void run(GLFWwindow* window) {
 	const char* glsl_version = "#version 330";
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-	//test::TestClearColor test;
 	test::TestMenu test;
 	/* Loop until the user closes the window */
 	double lastTime = glfwGetTime();

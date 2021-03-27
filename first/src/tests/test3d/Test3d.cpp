@@ -12,16 +12,16 @@ namespace test
 		_shader.bind();
 		glDisable(GL_BLEND);
 		float colors[] = {
-			 1.F, 0.F, 0.F,
-			1.F, 0.3F, 0.F,
-			1.F, 0.6F, 0.F,
-			0.5F, 1.F, 0.F,
-			0.F, 1.F, 0.F,
-			0.F, 1.F, 1.F,
-			0.F, 0.6F, 1.F,
-			0.6F, 0.F, 1.F,
+				1.F, 0.F, 0.F,
+				1.F, 0.3F, 0.F,
+				1.F, 0.6F, 0.F,
+				0.5F, 1.F, 0.F,
+				0.F, 1.F, 0.F,
+				0.F, 1.F, 1.F,
+				0.F, 0.6F, 1.F,
+				0.6F, 0.F, 1.F,
 		};
-		_cube = new Cube(glm::vec3(100, 100, 100), glm::vec3(300, 300, 300), &_shader);
+		_cube = new Cube(glm::vec3(100, 100, 100), glm::vec3(300, 300, 300));
 		_cube->fillWithIndexes();
 		float textureCoords[] = {
 			0.0F, 0.0F,
@@ -44,7 +44,8 @@ namespace test
 		glm::vec3 firstBase(400, 100, 100);
 		glm::vec3 secondBase(700, 100, 400);
 		glm::vec3 top(550, 400, 200);
-		_pyramid = new Pyramid(firstBase, secondBase, top, &_shader);
+		_pyramid = new Pyramid(firstBase, secondBase, top);
+		_pyramid->add_data(colors, 5 * 3);
 	}
 
 	Test3d::~Test3d()
@@ -78,8 +79,8 @@ namespace test
 		glm::mat4 model = glm::translate(glm::mat4(1.0F), translation);
 		const glm::mat4 mvp = proj * view * model;
 		_shader.set_uniform_mat4f("u_mvp", mvp);
-		_renderer.draw(*_cube);
-		_renderer.draw(*_pyramid);
+		_renderer.draw(*_cube, _shader);
+		_renderer.draw(*_pyramid, _shader);
 	}
 
 	void Test3d::on_imgui_render()
