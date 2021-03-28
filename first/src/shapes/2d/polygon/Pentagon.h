@@ -6,7 +6,7 @@
 class Pentagon : public Shape
 {
 public:
-	Pentagon(const glm::vec2 vertexes[5]) : Shape()
+	Pentagon(const glm::vec2 vertexes[5]) : Shape(DrawType::INDICES)
 	{
 		std::array<float, 10> _positions;
 		for (int i = 0; i < 5; i++)

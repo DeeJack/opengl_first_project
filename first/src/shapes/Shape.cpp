@@ -1,11 +1,14 @@
 #include "Shape.h"
 
-Shape::Shape(VertexArray* vertexes, IndexBuffer* buffer) : _vertex_array(vertexes),
-_index_buffer(buffer)
+Shape::Shape(VertexArray* vertexes, IndexBuffer* buffer, DrawType draw_type) : _vertex_array(vertexes),
+                                                                               _index_buffer(buffer),
+                                                                               _draw_type(draw_type)
 {
 }
 
-Shape::Shape() = default;
+Shape::Shape(DrawType draw_type) : _draw_type(draw_type)
+{
+}
 
 Shape::~Shape()
 {
@@ -43,4 +46,14 @@ void Shape::set_color(const glm::vec4& color)
 glm::vec4& Shape::color()
 {
 	return _color;
+}
+
+DrawType Shape::draw_type() const
+{
+	return _draw_type;
+}
+
+void Shape::set_draw_type(const DrawType draw_type)
+{
+	_draw_type = draw_type;
 }

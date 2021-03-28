@@ -11,7 +11,7 @@ private:
 	std::vector<float> _positions;
 public:
 	Rectangle(const glm::vec2& botLeft, const glm::vec2& topRight)
-		: Shape(), _width(topRight.x - botLeft.x), _height(topRight.y - botLeft.y), _botLeft(botLeft)
+		: Shape(DrawType::INDICES), _width(topRight.x - botLeft.x), _height(topRight.y - botLeft.y), _botLeft(botLeft)
 	{
 		_positions = {
 			botLeft.x, botLeft.y,
@@ -34,8 +34,6 @@ public:
 		Rectangle(botLeft, glm::vec2(botLeft.x + width, botLeft.y + height))
 	{
 	}
-
-	virtual ~Rectangle() = default;
 
 	void set_position(const glm::vec2 newBotLeft) override
 	{

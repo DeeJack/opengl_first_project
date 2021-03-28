@@ -16,22 +16,22 @@ namespace test
 		Pyramid* _pyramid;
 		Shader _shader;
 		Renderer _renderer;
-		glm::mat4 proj = glm::ortho(0.0F, 1280.0F, 0.0F, 720.0F, -500.0F, 500.0F);
-		glm::mat4 view = glm::translate(glm::mat4(1.0F), glm::vec3(0.0F, 1.0F, 0.0F));
-		glm::vec3 translation = glm::vec3(0, 0, -200);
-		Texture texture;
-		double horizontal_angle = 3.14F;
-		double vertical_angle = 0.0F;
-		float initialFoV = 45.F;
-		float speed = 75.0F;
-		float mouse_speed = 0.5F;
-		glm::vec3 position = glm::vec3(0.0F, 0.0F, 0.0F);
+		glm::mat4 _proj = glm::ortho(0.0F, 1280.0F, 0.0F, 720.0F, -500.0F, 500.0F);
+		glm::mat4 _view = glm::translate(glm::mat4(1.0F), glm::vec3(0.0F, 1.0F, 0.0F));
+		glm::vec3 _translation = glm::vec3(0, 0, -200);
+		Texture _texture;
+		double _horizontal_angle = 3.14F;
+		double _vertical_angle = 0.0F;
+		float _initial_fo_v = 45.F;
+		float _speed = 75.0F;
+		float _mouse_speed = 0.5F;
+		glm::vec3 _position = glm::vec3(0.0F, 0.0F, 0.0F);
 	public:
 		Test3dMovement();
-		virtual ~Test3dMovement() override;
+		~Test3dMovement() override;
 
 		void compute_mouse_position(float deltaTime);
-		
+
 		void on_update(float deltaTime) override;
 		void on_render() override;
 		void on_imgui_render() override;

@@ -6,7 +6,7 @@ class Cube : public Shape
 private:
 	std::vector<float> _positions;
 	std::vector<float> _full_data;
-	int _vertexes;
+	int _vertexes = 0;
 
 	const unsigned int indexes[36] = {
 		0, 1, 3, // ABD
@@ -23,7 +23,7 @@ private:
 		1, 4, 6 // BEG
 	};
 public:
-	Cube(glm::vec3 first, glm::vec3 second)
+	Cube(const glm::vec3& first, const glm::vec3& second) : Shape(DrawType::INDICES)
 	{
 		_positions = {
 			first.x, first.y, first.z,// A (first) 0
@@ -39,6 +39,7 @@ public:
 
 	void fillWithIndexes()
 	{
+		set_draw_type(DrawType::INDICES);
 		_vertexes = 8;
 		_full_data = _positions;
 		auto* va = new VertexArray();
@@ -53,6 +54,7 @@ public:
 
 	void fillWithoutIndexes()
 	{
+		set_draw_type(DrawType::NO_INDICES);
 		_vertexes = 36;
 		int index = 0;
 		for (int i = 0; i < _vertexes * 3; i += 3) {

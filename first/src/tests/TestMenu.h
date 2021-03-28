@@ -15,7 +15,7 @@ namespace test
 		Test* _current_test = new TestTextures();
 	public:
 
-		virtual ~TestMenu()
+		virtual ~TestMenu() override
 		{
 			delete _current_test;
 		}

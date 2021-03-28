@@ -30,25 +30,27 @@ static void bubble_sort(std::vector<SortingElement>& elements, std::mutex& shape
 {
 	for (int i = 0; i != elements.size(); ++i)
 	{
-		elements[i].object->set_color(normalize_color(255, 0, 0));
-		for (int j = 0; j != elements.size(); ++j)
+		elements[i].object->set_color(normalize_color(254, 101, 0));
+		for (int j = i + 1; j != elements.size(); ++j)
 		{
 			elements[j].object->set_color(normalize_color(102, 255, 51));
 			comparisons++;
-			if (elements[i].value < elements[j].value)
+			if (elements[i].value > elements[j].value)
 			{
 				std::this_thread::sleep_for(std::chrono::milliseconds(50));
 				elements[j].object->set_color(normalize_color(255, 255, 255));
-				elements[i].object->set_color(normalize_color(255, 255, 255));
 				shapes_mutex.lock();
 				ready = true;
 				auto temp2 = elements[i];
 				elements[i] = elements[j];
 				elements[j] = temp2;
+				elements[i].object->set_color(normalize_color(255, 255, 255));
 				shapes_mutex.unlock();
 			}
-			elements[j].object->set_color(normalize_color(255, 255, 255));
+			else
+				elements[j].object->set_color(normalize_color(255, 255, 255));
 		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		elements[i].object->set_color(normalize_color(255, 255, 255));
 	}
 	on_finish(elements);

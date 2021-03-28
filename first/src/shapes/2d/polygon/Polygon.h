@@ -4,7 +4,7 @@
 class Polygon : public Shape
 {
 public:
-	Polygon(const std::vector<glm::vec2>& positions) : Shape()
+	Polygon(const std::vector<glm::vec2>& positions) : Shape(DrawType::INDICES)
 	{
 		std::vector<float> _positions;
 		std::vector<unsigned int> indices;
@@ -29,8 +29,6 @@ public:
 		set_vertex_array(va);
 	}
 
-	Polygon() = default;
-	
 	void set_position(const float positions[]) override {}
 	void set_position(const glm::vec2 newBotLeft) override {}
 	void add_data(const float* data, unsigned count) override {}

@@ -1,6 +1,4 @@
 #pragma once
-#include <thread>
-#include <vector>
 
 #include "../Test.h"
 #include "../../renderer/Renderer.h"
@@ -23,7 +21,7 @@ namespace test
 		Texture _texture;
 	public:
 		TestTextures();
-		virtual ~TestTextures();
+		~TestTextures() override;
 
 		void init();
 

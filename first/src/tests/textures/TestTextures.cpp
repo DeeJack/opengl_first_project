@@ -14,7 +14,6 @@ test::TestTextures::TestTextures()
 
 test::TestTextures::~TestTextures()
 {
-	log("Deleting TestTextures");
 	delete _box;
 	log("Deleted TestTextures");
 }
@@ -28,14 +27,10 @@ void test::TestTextures::init()
 		0.0F, 1.F
 	};
 	_shader.bind();
+	
 	glEnable(GL_BLEND);
-	//_textureTask = new std::thread([this] {
 	_texture.load("res/textures/earth.png");
-	//, [this]()
-	//{
 	_texture.bind();
-	//});
-	//});
 
 	const float size = 600.F;
 	const glm::vec2 pos(100, 100.F);
@@ -49,7 +44,7 @@ void test::TestTextures::on_update(float deltaTime)
 
 void test::TestTextures::on_render()
 {
-	//_texture->bind();
+	_shader.bind();
 	glm::mat4 model = glm::translate(glm::mat4(1.0F), translation);
 	const glm::mat4 mvp = proj * view * model;
 	_shader.set_uniform1i("u_texture", 0);

@@ -6,7 +6,9 @@
 
 Image::~Image()
 {
-	delete _local_buffer;
+	//delete _local_buffer;
+	if (_local_buffer)
+		stbi_image_free(_local_buffer);
 }
 
 unsigned char* Image::load_image(const char* path)

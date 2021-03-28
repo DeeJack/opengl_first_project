@@ -6,7 +6,7 @@ class Pyramid : public Shape
 private:
 	std::vector<float> _positions;
 public:
-	Pyramid(const glm::vec3 firstBase, const glm::vec3 secondBase, const glm::vec3 top)
+	Pyramid(const glm::vec3 firstBase, const glm::vec3 secondBase, const glm::vec3 top): Shape(DrawType::INDICES)
 	{
 		_positions = {
 			firstBase.x, firstBase.y, firstBase.z, // A (first) 0

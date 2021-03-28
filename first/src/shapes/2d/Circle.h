@@ -10,7 +10,7 @@ private:
 	glm::vec2 _center;
 public:
 	Circle(glm::vec2 center, float radius)
-		: _radius(radius), _center(center)
+		: _radius(radius), _center(center), Shape(DrawType::TRIANGLE_FAN)
 	{
 		for (float angle = 0.0F; angle < 2.0F * PI; angle += 0.1)
 		{
