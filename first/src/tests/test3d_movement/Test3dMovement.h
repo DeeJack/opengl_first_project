@@ -26,6 +26,7 @@ namespace test
 		float _speed = 75.0F;
 		float _mouse_speed = 0.5F;
 		glm::vec3 _position = glm::vec3(0.0F, 0.0F, 0.0F);
+		bool _paused = false;
 	public:
 		Test3dMovement();
 		~Test3dMovement() override;

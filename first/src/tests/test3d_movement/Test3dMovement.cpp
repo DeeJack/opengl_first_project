@@ -24,24 +24,24 @@ namespace test
 		};
 		_cube = new Cube(glm::vec3(100, 100, 100), glm::vec3(300, 300, 300));
 		_cube->fillWithIndexes();
-		//float textureCoords[] = {
-		//	0.0F, 0.0F,
-		//	1.0F, 0.0F,
-		//	1.0F, 1.0F,
-		//0.0F, 1.0F
-		//};
-		//int texInds[6] = { 0, 1, 3, 3, 1, 2 };
-		//float textureBuffer[12 * 6];
-		//for (int i = 0; i < 36; i += 2) {
-		//	textureBuffer[i * 2 + 0] = textureCoords[texInds[i % 4]];
-		//	textureBuffer[i * 2 + 1] = textureCoords[texInds[(i + 1) % 4]];
-		//}
+		/*float textureCoords[] = {
+			0.0F, 0.0F,
+			1.0F, 0.0F,
+			1.0F, 1.0F,
+		0.0F, 1.0F
+		};
+		int texInds[6] = { 0, 1, 3, 3, 1, 2 };
+		float textureBuffer[12 * 6];
+		for (int i = 0; i < 36; i += 2) {
+			textureBuffer[i * 2 + 0] = textureCoords[texInds[i % 4]];
+			textureBuffer[i * 2 + 1] = textureCoords[texInds[(i + 1) % 4]];
+		}
+		texture.load("res/textures/earth.png");
+		texture.bind();
+		_shader.set_uniform1i("u_texture", 0);*/
 
 		_cube->add_data(colors, 8 * 3);
 		_shader.bind();
-		//texture.load("res/textures/earth.png");
-		//texture.bind();
-		//_shader.set_uniform1i("u_texture", 0);
 		glm::vec3 firstBase(400, 100, 100);
 		glm::vec3 secondBase(700, 100, 400);
 		glm::vec3 top(550, 400, 200);
@@ -55,7 +55,6 @@ namespace test
 		delete _pyramid;
 	}
 
-	bool paused = false;
 
 	void Test3dMovement::compute_mouse_position(float deltaTime)
 	{
@@ -71,14 +70,14 @@ namespace test
 		log("New angles: " + std::to_string(_horizontal_angle) + ", " + std::to_string(_vertical_angle));
 
 		// Direction : Spherical coordinates to Cartesian coordinates conversion
-		glm::vec3 direction(
+		const glm::vec3 direction(
 			cos(_vertical_angle) * sin(_horizontal_angle),
 			sin(_vertical_angle),
 			cos(_vertical_angle) * cos(_horizontal_angle)
 		);
 
 		// Right vector
-		glm::vec3 right = glm::vec3(
+		const auto right = glm::vec3(
 			sin(_horizontal_angle - 3.14f / 2.0f),
 			0,
 			cos(_horizontal_angle - 3.14f / 2.0f)
@@ -86,8 +85,8 @@ namespace test
 
 
 		// Up vector : perpendicular to both direction and right
-		glm::vec3 up = glm::cross(right, direction);
-		GLFWwindow* window = current_window();
+		const auto up = glm::cross(right, direction);
+		auto* window = current_window();
 
 		// Move forward
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -112,9 +111,9 @@ namespace test
 		// Strafe left
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{
-			paused = !paused;
+			_paused = !_paused;
 		}
-		if (paused)
+		if (_paused)
 			return;
 		set_mouse_position(width / 2.F, height / 2.F);
 
@@ -137,8 +136,8 @@ namespace test
 
 	void Test3dMovement::on_render()
 	{
-		glm::mat4 model = glm::translate(glm::mat4(1.0F), _translation);
-		const glm::mat4 mvp = _proj * _view * model;
+		const auto model = glm::translate(glm::mat4(1.0F), _translation);
+		const auto mvp = _proj * _view * model;
 		_shader.set_uniform_mat4f("u_mvp", mvp);
 		_renderer.draw_no_color(*_cube, _shader);
 		_renderer.draw_no_color(*_pyramid, _shader);

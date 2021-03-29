@@ -2,9 +2,11 @@
 #include "Test.h"
 #include "TestClearColor.h"
 #include "imgui/imgui.h"
+#include "seven_segment/SevenSegmentTest.h"
 #include "sorting/Sorting.h"
 #include "test3d/Test3d.h"
 #include "test3d_movement/Test3dMovement.h"
+#include "static_movement_3d/StaticMovement3d.h"
 #include "test3d_textures/Test3dTextures.h"
 #include "textures/TestTextures.h"
 
@@ -62,6 +64,16 @@ namespace test
 			{
 				delete _current_test;
 				_current_test = new Test3dTextures();
+			}
+			else if (ImGui::Button("3d movement 2"))
+			{
+				delete _current_test;
+				_current_test = new StaticMovement3d();
+			}
+			else if (ImGui::Button("Seven segment"))
+			{
+				delete _current_test;
+				_current_test = new SevenSegmentTest();
 			}
 
 			_current_test->on_imgui_render();
