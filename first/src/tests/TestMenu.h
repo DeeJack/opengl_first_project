@@ -2,6 +2,7 @@
 #include "Test.h"
 #include "TestClearColor.h"
 #include "imgui/imgui.h"
+#include "pong/Pong.h"
 #include "seven_segment/SevenSegmentTest.h"
 #include "sorting/Sorting.h"
 #include "test3d/Test3d.h"
@@ -74,6 +75,11 @@ namespace test
 			{
 				delete _current_test;
 				_current_test = new SevenSegmentTest();
+			}
+			else if (ImGui::Button("Pong"))
+			{
+				delete _current_test;
+				_current_test = new Pong();
 			}
 
 			_current_test->on_imgui_render();
