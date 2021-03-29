@@ -10,7 +10,7 @@ namespace test
 	struct TempSegment
 	{
 		glm::vec2 pos;
-		bool horizonal;
+		bool horizontal;
 	};
 
 	void SevenSegmentTest::update_segments(unsigned int newValue)
@@ -45,8 +45,8 @@ namespace test
 		};
 		for (const auto& x : pos)
 		{
-			int width = x.horizonal ? 100 : 20;
-			int height = x.horizonal ? 20 : 100;
+			int width = x.horizontal ? 100 : 20;
+			int height = x.horizontal ? 20 : 100;
 			_segments.push_back({ new Rectangle(x.pos, width, height) });
 		}
 		_shader.set_uniform_mat4f("u_mvp", _projection);

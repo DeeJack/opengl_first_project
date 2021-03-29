@@ -18,3 +18,14 @@ The tests are created include:<br>
     - 2d and 3d rendering<br>
     - Camera movement with mouse and keyboard<br>
     - Texture loading<br>
+<br>
+
+## Test examples
+
+### Sort example
+
+![Bubble sort example](./assets/sorting.gif)
+
+### Seven segment display example
+
+![Seven segment display example](./assets/seven_segment.gif)
