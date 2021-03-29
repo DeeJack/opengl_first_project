@@ -23,8 +23,8 @@ The tests are created include:<br>
 
 ### Sort example
 
-https://user-images.githubusercontent.com/20882533/112847871-cab91f00-90a7-11eb-97a7-51ee81ab6a9b.mp4
+![Bubble sort example](https://user-images.githubusercontent.com/20882533/112847871-cab91f00-90a7-11eb-97a7-51ee81ab6a9b.mp4)
 
 ### Seven segment display example
 
-https://user-images.githubusercontent.com/20882533/112847947-ddcbef00-90a7-11eb-84ee-a867b72adc4f.mp4
+![Seven segment display example](https://user-images.githubusercontent.com/20882533/112847947-ddcbef00-90a7-11eb-84ee-a867b72adc4f.mp4)
