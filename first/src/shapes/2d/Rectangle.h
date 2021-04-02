@@ -81,4 +81,36 @@ public:
 		layout->push<float>(2);
 		vertex_array()->add_buffer(*vb, *layout);
 	}
+
+	bool intersect(const glm::vec2& point) override
+	{
+		static const int offset = 3;
+		return (point.y > _botLeft.y && point.y < (_botLeft.y + _height) &&
+			((point.x > _botLeft.x - offset) && (point.x < _botLeft.x + _width + offset)));
+	}
+	
+	bool intersect(const Shape& otherShape) override
+	{
+		return false;
+	}
+
+
+	float width() const;
+	float height() const;
+	glm::vec2 bot_left() const;
 };
+
+inline float Rectangle::width() const
+{
+	return _width;
+}
+
+inline float Rectangle::height() const
+{
+	return _height;
+}
+
+inline glm::vec2 Rectangle::bot_left() const
+{
+	return _botLeft;
+}

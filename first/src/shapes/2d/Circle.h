@@ -10,7 +10,7 @@ private:
 	glm::vec2 _center;
 public:
 	Circle(glm::vec2 center, float radius)
-		: _radius(radius), _center(center), Shape(DrawType::TRIANGLE_FAN)
+		: Shape(DrawType::TRIANGLE_FAN), _radius(radius), _center(center)
 	{
 		for (float angle = 0.0F; angle < 2.0F * PI; angle += 0.1)
 		{
@@ -61,4 +61,35 @@ public:
 		layout->push<float>(2);
 		vertex_array()->add_buffer(*vb, *layout);
 	}
+
+	bool intersect(const glm::vec2& point) override
+	{
+		return false;
+	}
+	
+	bool intersect(const Shape& otherShape) override
+	{
+		return false;
+	}
+
+
+	float radius() const;
+	glm::vec2 center() const;
+
+	std::vector<float> vertexes() const;
 };
+
+inline float Circle::radius() const
+{
+	return _radius;
+}
+
+inline glm::vec2 Circle::center() const
+{
+	return _center;
+}
+
+inline std::vector<float> Circle::vertexes() const
+{
+	return _vertexes;
+}

@@ -105,4 +105,14 @@ public:
 		layout->push<float>(dataPerVertex);
 		vertex_array()->add_buffer(*vb, *layout);
 	}
+
+	bool intersect(const glm::vec2& point) override
+	{
+		return false;
+	}
+	
+	bool intersect(const Shape& otherShape) override
+	{
+		return false;
+	}
 };

@@ -30,4 +30,14 @@ public:
 	void add_data(const float* data, unsigned size) override
 	{
 	}
+
+	bool intersect(const glm::vec2& point) override
+	{
+		return false;
+	}
+
+	bool intersect(const Shape& otherShape) override
+	{
+		return false;
+	}
 };

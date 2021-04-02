@@ -44,4 +44,14 @@ public:
 	virtual void set_position(const glm::vec2 newPoint) = 0;
 
 	virtual void add_data(const float* data, unsigned count) = 0;
+
+	virtual bool intersect(const glm::vec2& point)
+	{
+		return false;
+	}
+	
+	virtual bool intersect(const Shape& otherShape)
+	{
+		return false;
+	}
 };

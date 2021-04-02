@@ -32,4 +32,14 @@ public:
 	void set_position(const float positions[]) override {}
 	void set_position(const glm::vec2 newBotLeft) override {}
 	void add_data(const float* data, unsigned count) override {}
+
+	bool intersect(const glm::vec2& point) override
+	{
+		return false;
+	}
+
+	bool intersect(const Shape& otherShape) override
+	{
+		return false;
+	}
 };

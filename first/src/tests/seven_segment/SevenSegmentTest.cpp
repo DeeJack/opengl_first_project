@@ -49,7 +49,6 @@ namespace test
 			int height = x.horizontal ? 20 : 100;
 			_segments.push_back({ new Rectangle(x.pos, width, height) });
 		}
-		_shader.set_uniform_mat4f("u_mvp", _projection);
 		glfwSwapInterval(60);
 	}
 
