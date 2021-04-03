@@ -15,6 +15,12 @@ SevenSegment::SevenSegment(const glm::vec3 startPosition, float scale)
 	init();
 }
 
+SevenSegment::SevenSegment(const SevenSegment& other)
+	: _start_position(other._start_position), _scale(other._scale)
+{
+	*this = other;
+}
+
 void SevenSegment::init()
 {
 	const float offset = 10 * _scale;
@@ -41,7 +47,7 @@ SevenSegment::~SevenSegment()
 		delete x.seg;
 }
 
-std::vector<SevenSegment::Segment> SevenSegment::get_segments()
+std::vector<SevenSegment::Segment> SevenSegment::get_segments() const
 {
 	return _segments;
 }
@@ -67,4 +73,22 @@ void SevenSegment::show(const int value)
 	if (value < 0 || value > 9)
 		throw std::invalid_argument("Seven segment display can only show numbers from 0 to 9");
 	update_segments(NUM_VALUES[value]);
+}
+
+void SevenSegment::set_color(const glm::vec4& colors)
+{
+	_colors = colors;
+	for (const auto& x : _segments)
+		x.seg->set_color(colors);
+}
+
+SevenSegment& SevenSegment::operator=(const SevenSegment& other)
+{
+	_start_position = other._start_position;
+	_scale = other._scale;
+	_segments.clear();
+	_segments.shrink_to_fit();
+	init();
+	set_color(other._colors);
+	return *this;
 }

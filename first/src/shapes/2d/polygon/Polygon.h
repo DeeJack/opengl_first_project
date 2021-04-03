@@ -4,6 +4,11 @@
 class Polygon : public Shape
 {
 public:
+	Polygon(const glm::vec2& firstPoint) : Shape(DrawType::INDICES)
+	{
+		// TODO: generate it with cos and sin like the circle?
+	}
+	
 	Polygon(const std::vector<glm::vec2>& positions) : Shape(DrawType::INDICES)
 	{
 		std::vector<float> _positions;

@@ -13,6 +13,7 @@ public:
 	void draw_without_indexes(Shape& shape, Shader& shader) const;
 	void draw_without_indexes_no_color(Shape& shape, Shader& shader) const;
 	void draw_without_indexes_triangle_fan(Shape& shape, Shader& shader) const;
+	void draw_without_indexes_no_color_triangle_fan(Shape& shape, Shader& shader) const;
 
 	void clear() const;
 };

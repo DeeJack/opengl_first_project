@@ -15,19 +15,24 @@ private:
 
 	//glm::mat4 _projection = glm::ortho(0, 1280, 720, 0, -500, 500);
 	std::vector<Segment> _segments;
-	const glm::vec3 _start_position;
+	glm::vec3 _start_position;
 	float _scale;
+	glm::vec4 _colors = glm::vec4(1.F);
 	//Renderer _renderer;
 
 public:
 	SevenSegment(const glm::vec3 startPosition, float scale);
+	SevenSegment(const SevenSegment& other);
 	void init();
 
 	~SevenSegment();
 
-	std::vector<Segment> get_segments();
+	std::vector<Segment> get_segments() const;
 	void update_segments(unsigned newValue);
 	void show(const int value);
+	void set_color(const glm::vec4&);
+
+	SevenSegment& operator=(const SevenSegment& other);
 	
 	//void scale(const float scale);
 };

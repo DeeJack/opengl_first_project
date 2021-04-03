@@ -59,7 +59,7 @@ namespace test
 		glm::mat4 mvp = _proj * _model;
 		_shader.set_uniform_mat4f("u_mvp", mvp);
 		for (auto* const shape : _shapes)
-			_renderer.draw(*shape, _shader);
+			_renderer.draw_no_color(*shape, _shader);
 	}
 
 	void TestClearColor::on_imgui_render()

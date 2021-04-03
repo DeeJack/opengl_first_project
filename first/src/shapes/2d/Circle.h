@@ -9,13 +9,15 @@ private:
 	float _radius;
 	glm::vec2 _center;
 public:
-	Circle(glm::vec2 center, float radius)
+	Circle(const glm::vec2& center, const float radius)
 		: Shape(DrawType::TRIANGLE_FAN), _radius(radius), _center(center)
 	{
-		for (float angle = 0.0F; angle < 2.0F * PI; angle += 0.1)
+		_vertexes.emplace_back(center.x);
+		_vertexes.emplace_back(center.y);
+		for (int angle = 0; angle <= 360; angle += 10)
 		{
-			_vertexes.emplace_back(radius * cos(angle) + center.x);
-			_vertexes.emplace_back(radius * sin(angle) + center.y);
+			_vertexes.emplace_back(radius * cos(glm::radians(static_cast<float>(angle))) + center.x);
+			_vertexes.emplace_back(radius * sin(glm::radians(static_cast<float>(angle))) + center.y);
 		}
 		auto* va = new VertexArray();
 		auto* vb = new VertexBuffer(&_vertexes[0], _vertexes.size() * sizeof(float), _vertexes.size() / 2);
@@ -31,10 +33,12 @@ public:
 	{
 		_vertexes.clear();
 		_vertexes.shrink_to_fit();
-		for (float angle = 0.0F; angle < 2.0F * PI; angle += 0.1)
+		_vertexes.emplace_back(newCenter.x);
+		_vertexes.emplace_back(newCenter.y);
+		for (int angle = 0; angle < 360; angle += 10)
 		{
-			_vertexes.emplace_back(_radius * cos(angle) + _center.x);
-			_vertexes.emplace_back(_radius * sin(angle) + _center.y);
+			_vertexes.emplace_back(_radius * cos(glm::radians(static_cast<float>(angle))) + _center.x);
+			_vertexes.emplace_back(_radius * sin(glm::radians(static_cast<float>(angle))) + _center.y);
 		}
 		vertex_array()->bind();
 		vertex_array()->bound_buffer()->bind();

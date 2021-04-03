@@ -37,7 +37,7 @@ void Renderer::draw_no_color(Shape& shape, Shader& shader) const
 	case DrawType::NO_INDICES:
 		return draw_without_indexes_no_color(shape, shader);
 	case DrawType::TRIANGLE_FAN:
-		return draw_without_indexes_triangle_fan(shape, shader);
+		return draw_without_indexes_no_color_triangle_fan(shape, shader);
 	default:
 		shader.bind();
 		const auto& color = shape.color();
@@ -75,6 +75,16 @@ void Renderer::draw_without_indexes_triangle_fan(Shape& shape, Shader& shader) c
 	shader.set_uniform4f("u_color", color.r, color.g, color.b, color.a);
 	shape.vertex_array()->bind();
 	GLCall(glDrawArrays(GL_TRIANGLE_FAN, 0, shape.vertex_array()->bound_buffer()->vertices_count()));
+	// The indices pointer is already bound
+}
+
+void Renderer::draw_without_indexes_no_color_triangle_fan(Shape& shape, Shader& shader) const
+{
+	shader.bind();
+	const auto& color = shape.color();
+	shader.set_uniform4f("u_color", color.r, color.g, color.b, color.a);
+	shape.vertex_array()->bind();
+	GLCall(glDrawArrays(GL_LINE_LOOP, 0, shape.vertex_array()->bound_buffer()->vertices_count()));
 	// The indices pointer is already bound
 }
 
