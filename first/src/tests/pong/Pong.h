@@ -16,7 +16,7 @@ namespace test
 		glm::vec3 position = glm::vec3(0.F);
 		Circle* shape = nullptr;
 		glm::mat4 model = glm::mat4(1.F);
-		glm::vec2 speed = glm::vec2(250.F, 150.F);
+		glm::vec2 speed = glm::vec2(1500.F, 150.F);
 	};
 
 	struct Racket

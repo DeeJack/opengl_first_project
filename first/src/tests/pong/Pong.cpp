@@ -17,8 +17,6 @@ namespace test
 		ball.model = glm::mat4(1.F);
 		rackets[0].model = glm::mat4(1.F);
 		rackets[1].model = glm::mat4(1.F);
-		_seven_segments[0] = SevenSegment{ glm::vec3(WINDOW_WIDTH / 2 - 100, 45.F, 0.F), 0.3F };
-		_seven_segments[1] = SevenSegment{ glm::vec3(WINDOW_WIDTH / 2 + 100, 45.F, 0.F), 0.3F };
 		init();
 		_seven_segments[0].show(scores[0]);
 		_seven_segments[1].show(scores[1]);
@@ -42,6 +40,9 @@ namespace test
 		rackets[1].position = secondRacketPoint;
 		rackets[1].shape = new Rectangle(secondRacketPoint, 20.F, 100.F);
 		rackets[1].shape->set_color(glm::vec4(255.F, 0.F, 0.F, 1.F));
+		
+		_seven_segments[0] = SevenSegment{ glm::vec3(WINDOW_WIDTH / 2 - 100, 45.F, 0.F), 0.3F };
+		_seven_segments[1] = SevenSegment{ glm::vec3(WINDOW_WIDTH / 2 + 100, 45.F, 0.F), 0.3F };
 		_seven_segments[0].set_color(glm::vec4(0.F, 255.F, 0.F, 1.F));
 		_seven_segments[1].set_color(glm::vec4(255.F, 0.F, 0.F, 1.F));
 	}
@@ -52,6 +53,7 @@ namespace test
 		glfwSwapInterval(0);
 		_shader.bind();
 		get_window_size(&WINDOW_WIDTH, &WINDOW_HEIGHT);
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		init();
 		

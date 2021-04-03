@@ -22,6 +22,10 @@ The tests are created include:<br>
 
 ## Test examples
 
+### Pong example
+
+![Pong example](./assets/pong.gif)
+
 ### Sort example
 
 ![Bubble sort example](./assets/sorting.gif)
