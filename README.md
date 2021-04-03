@@ -33,3 +33,7 @@ The tests are created include:<br>
 ### Seven segment display example
 
 ![Seven segment display example](./assets/seven_segment.gif)
+
+### Others examples
+
+![Others examples](./assets/others.gif)
