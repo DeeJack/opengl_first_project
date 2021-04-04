@@ -6,6 +6,7 @@
 #include "../../shaders/Shader.h"
 #include "../../shapes/2d/Circle.h"
 #include "../../shapes/2d/Rectangle.h"
+#include "../../textures/Texture.h"
 #include "glm/gtx/transform.hpp"
 #include "imgui/imgui_impl_glfw.h"
 
@@ -31,7 +32,7 @@ namespace test
 	private:
 		int WINDOW_WIDTH = 0, WINDOW_HEIGHT = 0;
 		glm::mat4 _projection = glm::mat4(1.F);
-		Shader _shader = Shader("res/shaders/Basic.shader");
+		Shader _shader = Shader("res/shaders/textures.shader");
 		Renderer _renderer;
 		glm::vec2 _center = glm::vec2(0.F);
 		Ball ball;
@@ -42,6 +43,7 @@ namespace test
 			{glm::vec3(700.F, 45.F, 0.F), 0.3F}
 		};
 		bool finished = false;
+		Texture t;
 		
 		void check_intersection();
 		void init();

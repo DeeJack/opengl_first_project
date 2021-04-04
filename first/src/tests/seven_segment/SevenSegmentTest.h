@@ -3,6 +3,7 @@
 
 #include "../Test.h"
 #include "../../renderer/Renderer.h"
+#include "../../scenes/SevenSegment.h"
 #include "../../shapes/2d/Rectangle.h"
 #include "glm/gtx/transform.hpp"
 
@@ -11,21 +12,14 @@ namespace test
 	class SevenSegmentTest : public Test
 	{
 	private:
-		struct Segment
-		{
-			Rectangle* seg;
-			bool isVisible = true;
-		};
-
-		const unsigned int NUM_VALUES[10] = {0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B};
-
-		glm::mat4 _projection = glm::ortho(0, 1280, 720, 0, -500, 500);
-		std::vector<Segment> _segments;
+		glm::mat4 _projection = glm::ortho(0.F, 1280.F, 720.F, 0.F, -500.F, 500.F);
 		Renderer _renderer;
-		Shader _shader = Shader("res/shaders/Basic.shader");
+		Shader _shader = Shader("res/shaders/textures.shader");
 		int _count = 0;
-
-		void update_segments(unsigned int newValue);
+		SevenSegment _seven_segments[2] = {
+			{glm::vec3(100, 100, 0), 1.0},
+			{glm::vec3(285, 100, 0), 1.0},
+		};
 	public:
 		SevenSegmentTest();
 		~SevenSegmentTest() override;

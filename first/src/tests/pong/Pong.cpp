@@ -31,6 +31,7 @@ namespace test
 		_center = glm::vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 		ball.shape = new Circle(_center, 20);
 		ball.position = glm::vec3(_center, 0.F);
+		ball.shape->add_texture();
 		_shader.set_uniform4f("u_color", 1.F, 1.F, 1.F, 1.F);
 		const glm::vec2 firstRacketPoint(20, 10);
 		rackets[0].shape = new Rectangle(firstRacketPoint, 20.F, 100.F);
@@ -51,9 +52,9 @@ namespace test
 	{
 		PONG_INSTANCE = this;
 		glfwSwapInterval(0);
-		_shader.bind();
 		get_window_size(&WINDOW_WIDTH, &WINDOW_HEIGHT);
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		_shader.bind();
 
 		init();
 		
@@ -65,6 +66,9 @@ namespace test
 			if(PONG_INSTANCE != nullptr)
 				PONG_INSTANCE->on_resize(window, width, height);
 		});
+		t.load("res/textures/ball.png");
+		t.bind();
+		_shader.set_uniform1i("u_texture", 0);
 	}
 
 	Pong::~Pong()
@@ -169,7 +173,9 @@ namespace test
 	{
 		const auto ball_mvp = _projection * ball.model;
 		_shader.set_uniform_mat4f("u_mvp", ball_mvp);
+		_shader.set_uniform1b("u_is_texture", true);
 		_renderer.draw(*ball.shape, _shader);
+		_shader.set_uniform1b("u_is_texture", false);
 
 		const auto racket_1_mvp = _projection * rackets[0].model;
 		_shader.set_uniform_mat4f("u_mvp", racket_1_mvp);

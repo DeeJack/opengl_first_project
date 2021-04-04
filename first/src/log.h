@@ -10,7 +10,7 @@ static void GLAPIENTRY LOG_ERROR(GLenum source, GLenum type, GLuint id, GLenum s
 		return;
 	std::cout << "[OpenGL Error](" << type << ") " << message << std::endl;
 	std::cout << source << ", type: " << type << ", id: " << id << ", severity: " << severity << ", message: " << message << std::endl;
-	__debugbreak();
+	//__debugbreak();
 }
 
 static void log(const std::string& s)

@@ -5,13 +5,14 @@
 #include "../shapes/2d/Circle.h"
 #include "../shapes/2d/polygon/Pentagon.h"
 #include "../shapes/2d/polygon/Polygon.h"
+#include "../textures/Texture.h"
 #include "glm/gtx/transform.hpp"
 #include "imgui/imgui.h"
 
 namespace test
 {
 	TestClearColor::TestClearColor()
-		: _shader("res/shaders/Basic.shader")
+		: _shader("res/shaders/textures.shader")
 	{
 		glm::vec2 vertices[] = {
 			{100.0F, 100.0F},
@@ -32,7 +33,14 @@ namespace test
 		
 		_shapes.emplace_back(new Polygon(pos));
 		_shapes.emplace_back(new Pentagon(vertices));
-		_shapes.emplace_back(new Circle(glm::vec2(400.F, 400.F), 30.F));
+		glDisable(GL_BLEND);
+		auto* circle = new Circle(glm::vec2(400.F, 400.F), 30.F);
+		_shapes.emplace_back(circle);
+		_shader.bind();
+		t.load("res/textures/earth.png");
+		t.bind();
+		_shader.set_uniform1i("u_texture", 0);
+		circle->add_texture();
 	}
 
 	TestClearColor::~TestClearColor()
@@ -58,8 +66,12 @@ namespace test
 		_shader.bind();
 		glm::mat4 mvp = _proj * _model;
 		_shader.set_uniform_mat4f("u_mvp", mvp);
-		for (auto* const shape : _shapes)
-			_renderer.draw_no_color(*shape, _shader);
+		_shader.set_uniform1b("u_is_texture", false);
+		for (int i = 0; i != 2; ++i)
+			_renderer.draw(*_shapes[i], _shader);
+		_shader.set_uniform1b("u_is_texture", true);
+		_renderer.draw(*_shapes[2], _shader);
+		
 	}
 
 	void TestClearColor::on_imgui_render()

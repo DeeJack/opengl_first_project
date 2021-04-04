@@ -1,6 +1,7 @@
 #pragma once
 #include "Test.h"
 #include "../renderer/Renderer.h"
+#include "../textures/Texture.h"
 #include "glm/gtx/transform.hpp"
 
 namespace test
@@ -16,6 +17,7 @@ namespace test
 		glm::mat4 _model = glm::mat4(1.0F);
 		glm::mat4 _view = glm::translate(glm::mat4(1.0F), glm::vec3(0.0F, 0.0F, 0.0F));
 		glm::vec3 _translation = glm::vec3(0, 0, 0);
+		Texture t;
 	public:
 		TestClearColor();
 		~TestClearColor() override;

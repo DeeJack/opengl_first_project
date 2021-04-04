@@ -7,74 +7,41 @@
 
 namespace test
 {
-	struct TempSegment
-	{
-		glm::vec2 pos;
-		bool horizontal;
-	};
-
-	void SevenSegmentTest::update_segments(unsigned int newValue)
-	{
-		// Each bit represent a segment,
-		// For example, 256 : 10000000 -> every bit is off
-		// 126 (0x7E) -> 1111110 -> Every bit on aside from the last one (G) -> 0
-		int shiftIndex = 6;
-		for (int i = 0; i != 7; ++i)
-		{
-			if ((newValue >> shiftIndex) & 1)
-				_segments[i].isVisible = true;
-			else
-				_segments[i].isVisible = false;
-			--shiftIndex;
-		}
-	}
-
 	SevenSegmentTest::SevenSegmentTest()
-		: _shader("res/shaders/basic.shader")
 	{
 		_shader.bind();
-		_projection = glm::ortho(0.F, 1280.F, 720.F, 0.F, -500.F, 500.F);
-		const TempSegment pos[] = {
-			{glm::vec2(100, 100), true}, // A
-			{glm::vec2(210, 120), false}, // B
-			{glm::vec2(210, 230), false}, // C
-			{glm::vec2(100, 320), true}, // D
-			{glm::vec2(70, 230), false}, // E
-			{glm::vec2(70, 120), false}, // F
-			{glm::vec2(100, 210), true}, // G
-		};
-		for (const auto& x : pos)
-		{
-			int width = x.horizontal ? 100 : 20;
-			int height = x.horizontal ? 20 : 100;
-			_segments.push_back({ new Rectangle(x.pos, width, height) });
-		}
+		_shader.set_uniform1b("u_is_texture", false);
+		_shader.set_uniform4f("u_color", 1.F, 0.F, 0.F, 1.F);
 		glfwSwapInterval(60);
 	}
 
 	SevenSegmentTest::~SevenSegmentTest()
 	{
-		for (const auto& x : _segments)
-		{
-			delete x.seg;
-		}
-		glfwSwapInterval(1);
+		glfwSwapInterval(0);
 	}
 
 	void SevenSegmentTest::on_update(float deltaTime)
 	{
-		update_segments(NUM_VALUES[_count]);
-		_count = (_count + 1) % 10;
+		const auto first = _count % 10;
+		const auto second = _count / 10;
+		_seven_segments[1].show(first);
+		_seven_segments[0].show(second);
+		_count++;
 	}
 
 	void SevenSegmentTest::on_render()
 	{
-		for (const auto& x : _segments)
+		_shader.set_uniform_mat4f("u_mvp", _projection);
+		_shader.set_uniform1b("u_is_texture", false);
+		for (const auto& segment : _seven_segments)
 		{
-			if (x.isVisible)
-				_renderer.draw(*x.seg, _shader);
-			else
-				_renderer.draw_no_color(*x.seg, _shader);
+			for (const auto& x : segment.get_segments())
+			{
+				if (x.isVisible)
+					_renderer.draw(*x.seg, _shader);
+				else
+					_renderer.draw_no_color(*x.seg, _shader);
+			}
 		}
 	}
 

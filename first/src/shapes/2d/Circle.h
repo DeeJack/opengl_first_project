@@ -23,6 +23,7 @@ public:
 		auto* vb = new VertexBuffer(&_vertexes[0], _vertexes.size() * sizeof(float), _vertexes.size() / 2);
 		auto* layout = new BufferLayout();
 		layout->push<float>(2);
+		layout->push<float>(2);
 		va->add_buffer(*vb, *layout);
 		set_vertex_array(va);
 	}
@@ -49,7 +50,7 @@ public:
 	{
 		std::vector<float> fullData;
 		int index = 0;
-		for (int i = 0; i != static_cast<int>(_vertexes.size() + count); i += 4)
+		for (int i = 0; i != static_cast<int>(_vertexes.size()); i += 2)
 		{
 			fullData.emplace_back(_vertexes[index]);
 			fullData.emplace_back(_vertexes[index + 1]);
@@ -59,7 +60,7 @@ public:
 		}
 		VertexBuffer::unbind();
 		delete vertex_array()->bound_buffer();
-		auto* vb = new VertexBuffer(&fullData[0], fullData.size() * sizeof(float));
+		auto* vb = new VertexBuffer(&fullData[0], fullData.size() * sizeof(float), fullData.size() / 4);
 		auto* layout = new BufferLayout();
 		layout->push<float>(2);
 		layout->push<float>(2);
@@ -76,11 +77,12 @@ public:
 		return false;
 	}
 
-
 	float radius() const;
 	glm::vec2 center() const;
 
 	std::vector<float> vertexes() const;
+
+	void add_texture();
 };
 
 inline float Circle::radius() const
@@ -96,4 +98,17 @@ inline glm::vec2 Circle::center() const
 inline std::vector<float> Circle::vertexes() const
 {
 	return _vertexes;
+}
+
+inline void Circle::add_texture()
+{
+	std::vector<float> texCoords;
+	texCoords.emplace_back(0.5F);
+	texCoords.emplace_back(0.5F);
+	for (int angle = 0; angle <= 360; angle += 10)
+	{
+		texCoords.emplace_back((cos(glm::radians(static_cast<double>(angle))) + 1.0) * 0.5);
+		texCoords.emplace_back((sin(glm::radians(static_cast<double>(angle))) + 1.0) * 0.5);
+	}
+	add_data(&texCoords[0], texCoords.size());
 }
